@@ -73,6 +73,8 @@ export const EthereumProvider = ({ children }) => {
   const loadContract = async (signer, networkName, address) => {
     try {
       const contractAddress = NETWORKS[networkName].contractAddress;
+      console.log(`[BlockCert Debug] Loading contract at: ${contractAddress} on network: ${networkName}`);
+      
       const contract = new ethers.Contract(
         contractAddress,
         CertificateRegistryABI.abi,
@@ -83,11 +85,13 @@ export const EthereumProvider = ({ children }) => {
 
       // Get user role using the provided address since React state 'account' may be stale
       if (address) {
+        console.log(`[BlockCert Debug] Fetching role for address: ${address}`);
         const role = await contract.roles(address);
+        console.log(`[BlockCert Debug] Role fetched: ${role}`);
         setUserRole(role);
       }
     } catch (error) {
-      console.error('Error loading contract:', error);
+      console.error('[BlockCert Debug] Error loading contract or roles:', error);
     }
   };
 
