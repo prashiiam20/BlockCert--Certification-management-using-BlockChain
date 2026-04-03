@@ -40,8 +40,6 @@ import SecurityIcon from '@mui/icons-material/Security';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import LinkIcon from '@mui/icons-material/Link';
-import BrandedQR from '../components/BrandedQR';
 import { BarChart } from '@mui/x-charts/BarChart';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import PublicIcon from '@mui/icons-material/Public';
@@ -51,11 +49,11 @@ const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 // ─── Sub-component: PreviewCard (Sticky Draft) ──────────────────────────────
 function PreviewCard({ data, file }) {
   return (
-    <Card elevation={4} sx={{ 
-      position: 'sticky', 
-      top: 100, 
-      borderRadius: '24px', 
-      border: '2px solid #E5E1D1', 
+    <Card elevation={4} sx={{
+      position: 'sticky',
+      top: 100,
+      borderRadius: '24px',
+      border: '2px solid #E5E1D1',
       background: '#FCFBF7',
       overflow: 'hidden'
     }}>
@@ -70,9 +68,9 @@ function PreviewCard({ data, file }) {
         <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'monospace', mb: 3 }}>
           {data.studentAddress ? `${data.studentAddress.slice(0, 10)}...${data.studentAddress.slice(-8)}` : '0x...'}
         </Typography>
-        
+
         <Divider sx={{ my: 3, borderStyle: 'dashed' }} />
-        
+
         <Grid container spacing={2} sx={{ textAlign: 'left' }}>
           <Grid item xs={6}>
             <Typography variant="caption" color="text.secondary" fontWeight={800}>DEGREE</Typography>
@@ -90,7 +88,7 @@ function PreviewCard({ data, file }) {
             </Typography>
           </Grid>
         </Grid>
-        
+
         <Box sx={{ mt: 4, p: 2, bgcolor: '#ffffff', borderRadius: '12px', border: '1px solid #E5E1D1' }}>
           <Typography variant="caption" sx={{ color: '#A13D3D', fontWeight: 800 }}>
             CRYPTO STANDARD: CHACHA20-POLY1305
@@ -116,9 +114,9 @@ export default function IssueCertificate() {
       setLoadingVolume(true);
       const filter = contract.filters.CertificateIssued();
       const events = await contract.queryFilter(filter, 0, 'latest');
-      
+
       const myEvents = events.filter(e => e.args.institution.toLowerCase() === account.toLowerCase());
-      
+
       // Monthly Grouping (Last 6 Months)
       const monthlyCounts = {};
       const now = new Date();
@@ -199,7 +197,7 @@ export default function IssueCertificate() {
 
     try {
       if (!selectedFile) throw new Error("Please select a document.");
-      
+
       // 1. Preparation & Compression
       const arrayBuffer = await selectedFile.arrayBuffer();
       const rawUint8 = new Uint8Array(arrayBuffer);
@@ -213,7 +211,7 @@ export default function IssueCertificate() {
       const keyHash = ethers.utils.keccak256(signature);
       const key = ethers.utils.arrayify(keyHash);
       const hexDecryptionKey = keyHash.startsWith('0x') ? keyHash.substring(2) : keyHash;
-      
+
       const nonce = new Uint8Array(12);
       window.crypto.getRandomValues(nonce);
 
@@ -231,7 +229,7 @@ export default function IssueCertificate() {
 
       const encryptedBlob = new Blob([finalPayload], { type: 'application/octet-stream' });
       const encryptedFile = new File([encryptedBlob], `${selectedFile.name}.encrypted`, { type: 'application/octet-stream' });
-      
+
       // 5. IPFS Anchoring
       const pinataData = new FormData();
       pinataData.append('file', encryptedFile);
@@ -239,7 +237,7 @@ export default function IssueCertificate() {
       const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", pinataData, {
         headers: { 'Authorization': `Bearer ${process.env.REACT_APP_PINATA_JWT}` }
       });
-      
+
       const generatedCID = res.data.IpfsHash;
 
       // 5. Blockchain Registration (With Metadata Header)
@@ -247,8 +245,8 @@ export default function IssueCertificate() {
         ethers.utils.toUtf8Bytes(formData.studentAddress + generatedCID + Date.now())
       );
 
-      const expiryDate = formData.expiryYears === '0' 
-        ? 0 
+      const expiryDate = formData.expiryYears === '0'
+        ? 0
         : Math.floor(Date.now() / 1000) + (parseInt(formData.expiryYears) * 365 * 24 * 60 * 60);
 
       const tx = await contract.issueCertificate(
@@ -259,7 +257,7 @@ export default function IssueCertificate() {
       );
 
       const receipt = await tx.wait();
-      
+
       const eventSignature = "CertificateIssued(bytes32,address,address)";
       const eventTopic = ethers.utils.id(eventSignature);
 
@@ -306,9 +304,9 @@ export default function IssueCertificate() {
       <Container maxWidth="md" sx={{ mt: 8 }}>
         <Fade in={true}>
           <Box>
-            <Card elevation={0} sx={{ 
-              borderRadius: '24px', 
-              border: '1px solid #bbfcce', 
+            <Card elevation={0} sx={{
+              borderRadius: '24px',
+              border: '1px solid #bbfcce',
               background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)',
               textAlign: 'center',
               p: 5,
@@ -328,12 +326,12 @@ export default function IssueCertificate() {
 
               <Box sx={{ p: 4, background: '#1A0D0D', borderRadius: '20px', color: '#ffffff', position: 'relative', mb: 4 }}>
                 <Box sx={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', width: 'max-content' }}>
-                    <Chip 
-                      icon={<SecurityIcon style={{ color: '#166534', fontSize: '1rem' }} />}
-                      label="REGISTRY-BACKED & VAULT-SECURED" 
-                      size="small" 
-                      sx={{ bgcolor: '#dcfce7', color: '#166534', fontWeight: 900, border: '2px solid #166534', px: 1 }}
-                    />
+                  <Chip
+                    icon={<SecurityIcon style={{ color: '#166534', fontSize: '1rem' }} />}
+                    label="REGISTRY-BACKED & VAULT-SECURED"
+                    size="small"
+                    sx={{ bgcolor: '#dcfce7', color: '#166534', fontWeight: 900, border: '2px solid #166534', px: 1 }}
+                  />
                 </Box>
                 <Typography variant="caption" sx={{ color: '#A13D3D', fontWeight: 900, letterSpacing: '1px' }}>
                   🔒 MASTER DECRYPTION KEY (DO NOT SHARE)
@@ -341,7 +339,7 @@ export default function IssueCertificate() {
                 <Typography variant="h5" sx={{ mt: 2, fontWeight: 700, fontFamily: 'monospace', wordBreak: 'break-all' }}>
                   {result.decryptionKey}
                 </Typography>
-                <Button 
+                <Button
                   startIcon={<ContentCopyIcon />}
                   onClick={() => handleCopy(result.decryptionKey)}
                   sx={{ mt: 2, color: '#A13D3D', fontWeight: 800 }}
@@ -374,13 +372,13 @@ export default function IssueCertificate() {
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 3, px: 2 }}>
                       Scan this QR code with any mobile device for instant, zero-friction verification. The decryption key is securely embedded in the token.
                     </Typography>
-                    
+
                     <BrandedQR certId={result.certId} decryptionKey={result.decryptionKey} size={200} />
-                    
+
                     <Stack spacing={2} sx={{ mt: 3 }}>
-                      <Button 
+                      <Button
                         variant="contained"
-                        startIcon={<LinkIcon />} 
+                        startIcon={<LinkIcon />}
                         onClick={() => handleCopy(shareableUrl)}
                         sx={{ py: 1.5, fontWeight: 800, borderRadius: '12px' }}
                       >
@@ -420,16 +418,16 @@ export default function IssueCertificate() {
                   </Box>
                 </Grid>
               </Grid>
-              
+
               <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2 }}>
                 <Chip label={`On-Chain ID: ${result.certId.slice(0, 10)}...`} variant="outlined" />
                 <Chip label="Zero-Knowledge Fragment Enabled" color="secondary" size="small" />
               </Box>
             </Card>
 
-            <Button 
+            <Button
               fullWidth
-              variant="outlined" 
+              variant="outlined"
               onClick={() => window.location.reload()}
               sx={{ py: 2, borderRadius: '12px', fontWeight: 800 }}
             >
@@ -454,11 +452,11 @@ export default function IssueCertificate() {
                 Academic Registry & Secure Cryptographic Deployment
               </Typography>
             </Box>
-            
-            <Box sx={{ 
-              p: 2, 
-              bgcolor: '#FCFBF7', 
-              borderRadius: '16px', 
+
+            <Box sx={{
+              p: 2,
+              bgcolor: '#FCFBF7',
+              borderRadius: '16px',
               border: '1px solid #E5E1D1',
               display: 'flex',
               alignItems: 'center',
@@ -481,23 +479,23 @@ export default function IssueCertificate() {
 
           <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '24px', mb: 4, background: '#FCFBF7' }}>
             <CardContent sx={{ p: 4 }}>
-               <Typography variant="h6" sx={{ mb: 2, fontWeight: 800, color: '#8B1D1D', display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <AssessmentIcon fontSize="small" /> Institutional Issuance Trends
-               </Typography>
-               {loadingVolume ? (
-                  <Box sx={{ height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box>
-               ) : (
-                  <Box sx={{ height: 180, width: '100%' }}>
-                     <BarChart
-                        dataset={stats.chartData}
-                        xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                        series={[{ dataKey: 'count', color: '#8B1D1D', label: 'Certificates' }]}
-                        height={180}
-                        margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-                        slotProps={{ legend: { hidden: true } }}
-                     />
-                  </Box>
-               )}
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 800, color: '#8B1D1D', display: 'flex', alignItems: 'center', gap: 1 }}>
+                <AssessmentIcon fontSize="small" /> Institutional Issuance Trends
+              </Typography>
+              {loadingVolume ? (
+                <Box sx={{ height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box>
+              ) : (
+                <Box sx={{ height: 180, width: '100%' }}>
+                  <BarChart
+                    dataset={stats.chartData}
+                    xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
+                    series={[{ dataKey: 'count', color: '#8B1D1D', label: 'Certificates' }]}
+                    height={180}
+                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+                    slotProps={{ legend: { hidden: true } }}
+                  />
+                </Box>
+              )}
             </CardContent>
           </Card>
 
@@ -586,23 +584,23 @@ export default function IssueCertificate() {
                     <SecurityIcon color="primary" />
                     <Typography variant="h6" fontWeight={800}>Secure Packaging</Typography>
                   </Box>
-                  
-                  <Box 
-                    sx={{ 
-                      p: 5, 
-                      border: '2px dashed #D1CBB1', 
-                      borderRadius: '16px', 
-                      textAlign: 'center', 
-                      mb: 4, 
+
+                  <Box
+                    sx={{
+                      p: 5,
+                      border: '2px dashed #D1CBB1',
+                      borderRadius: '16px',
+                      textAlign: 'center',
+                      mb: 4,
                       bgcolor: selectedFile ? '#fdf2f2' : '#FCFBF7',
                       cursor: 'pointer',
                       '&:hover': { borderColor: '#8B1D1D' }
                     }}
                     component="label"
                   >
-                    <input 
-                      type="file" 
-                      hidden 
+                    <input
+                      type="file"
+                      hidden
                       onChange={(e) => setSelectedFile(e.target.files[0])}
                     />
                     <CloudUploadIcon sx={{ fontSize: 48, color: '#D1CBB1', mb: 2 }} />
