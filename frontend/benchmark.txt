@@ -1,0 +1,39 @@
+
+========================================
+   BlockCert Security & Storage Benchmark   
+========================================
+📄 File: Sample PDF (12.95 KB)
+
+⏳ Pushing Vault to Decentralized IPFS Network via Pinata...
+✅ Upload Complete! Testing Verification Latency...
+
+[Waiting 5 seconds for basic IPFS DHT propagation...]
+   Fetching via Pinata Gateway...
+   Fetching via Cloudflare IPFS...
+   Fetching via IPFS.io Public...
+   Fetching via Dweb.link...
+
+========================================
+          BENCHMARK RESULTS             
+========================================
+🔹 ZLib Compression Time               : 4.62 ms
+🔹 Compressed Size                     : 12.07 KB
+🔹 Size Reduction                      : 6.85%
+🔒 ChaCha20-Poly1305 Encryption Time   : 2.78 ms
+🔒 Final Encrypted Vault Size          : 12.10 KB
+☁️  Pinata IPFS Pinning Time           : 1551.06 ms
+☁️  Generated CID                      : QmcqEmLBZqA2ntU7uAmX5cQLBqMd7PA3Y8TFGxPtuoVonh
+🔓 ChaCha20 Decryption Time            : 13.21 ms
+🔓 ZLib Decompression Time             : 5.02 ms
+
+=== 🌍 PUBLIC GATEWAY COMPARISON (CID Retrieval) ===
+┌─────────┬───────────────────┬─────────────────┬───────────────────┐
+│ (index) │ Gateway           │ Latency (ms)    │ Status            │
+├─────────┼───────────────────┼─────────────────┼───────────────────┤
+│ 0       │ 'Pinata Gateway'  │ '4425.74'       │ '✅ Integrity OK' │
+│ 1       │ 'Cloudflare IPFS' │ 'Timeout/Error' │ '❌ Failed'       │
+│ 2       │ 'IPFS.io Public'  │ 'Timeout/Error' │ '❌ Failed'       │
+│ 3       │ 'Dweb.link'       │ 'Timeout/Error' │ '❌ Failed'       │
+└─────────┴───────────────────┴─────────────────┴───────────────────┘
+========================================
+

@@ -18,51 +18,40 @@ export default function Navbar() {
   const { account, network, userRole, disconnectWallet, switchNetwork } = useContext(EthereumContext);
 
   return (
-    <AppBar position="fixed" elevation={0} sx={{ 
-      background: 'rgba(255, 255, 255, 0.75)', 
-      backdropFilter: 'blur(30px)',
-      WebkitBackdropFilter: 'blur(30px)',
-      border: '1px solid rgba(0, 0, 0, 0.05)',
-      boxShadow: '0 8px 24px 0 rgba(0, 0, 0, 0.06)',
-      borderRadius: '24px',
-      margin: '24px auto',
-      width: 'calc(100% - 48px)',
-      maxWidth: '1200px',
-      left: 0,
-      right: 0,
+    <AppBar position="fixed" sx={{ 
+      background: '#ffffff', 
+      borderBottom: '1px solid #E5E1D1',
       zIndex: (theme) => theme.zIndex.drawer + 1
     }}>
-      <Toolbar sx={{ py: 1, px: { xs: 2, md: 4 } }}>
-        <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, fontWeight: 800, textDecoration: 'none', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <span style={{ fontSize: '28px' }}>🎓</span> 
-          <span style={{ background: 'linear-gradient(to right, #00b8d4 0%, #651fff 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            BlockCert
-          </span>
+      <Toolbar sx={{ py: 1, px: { xs: 2, md: 4 }, maxWidth: '1440px', margin: '0 auto', width: '100%' }}>
+        <Typography variant="h5" component={Link} to="/" sx={{ flexGrow: 1, fontWeight: 800, textDecoration: 'none', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center' }}>
+          <span style={{ color: '#8B1D1D', fontSize: '24px', marginRight: '4px' }}>🎓</span> 
+          <span style={{ color: '#8B1D1D' }}>Block</span><span style={{ color: '#1A0D0D' }}>Cert</span>
         </Typography>
 
         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center', mr: 2 }}>
-          {account && <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/">Dashboard</Button>}
+          {account && <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/">Dashboard</Button>}
           
           {/* INSTITUTION ONLY */}
           {userRole === ROLES.INSTITUTION && (
             <>
-              <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/issue">Issue</Button>
-              <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/revoke">Revoke</Button>
-              <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/batch-issue">Batch</Button>
+              <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/issue">Issue</Button>
+              <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/revoke">Revoke</Button>
+              <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/batch-issue">Batch</Button>
             </>
           )}
 
           {/* PUBLIC OR ANY ROLE */}
-          <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/verify">Verify</Button>
+          <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/verify">Verify</Button>
           
           {/* LOGGED IN ROLES EXCLUDING RECRUITERS  */}
           {account && userRole !== ROLES.NONE && (
-            <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/my-certificates">My Certificates</Button>
+            <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/my-certificates">My Certificates</Button>
           )}
 
           {/* ADMIN / REGULATORY ONLY */}
           {(userRole === ROLES.GOVERNMENT || userRole === ROLES.REGULATORY) && (
-            <Button sx={{ color: '#555568', fontWeight: 600, '&:hover': { color: '#00b8d4', background: 'rgba(0,184,212,0.05)' } }} component={Link} to="/manage-roles">Manage Roles</Button>
+            <Button sx={{ color: '#4B3F3F', fontWeight: 600, '&:hover': { color: '#8B1D1D', background: '#FCFBF7' } }} component={Link} to="/manage-roles">Manage Roles</Button>
           )}
         </Box>
 
@@ -75,11 +64,11 @@ export default function Navbar() {
                 onChange={(e) => switchNetwork(e.target.value)}
                 size="small"
                 sx={{ 
-                  color: '#1a1a2e', 
-                  backgroundColor: 'rgba(255,255,255,0.5)',
+                  color: '#1A0D0D', 
+                  backgroundColor: '#FCFBF7',
                   fontWeight: 600,
-                  '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.15)' },
-                  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#00b8d4' }
+                  '.MuiOutlinedInput-notchedOutline': { borderColor: '#E5E1D1' },
+                  '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#8B1D1D' }
                 }}
               >
                 {Object.keys(NETWORKS).map((key) => (
@@ -91,21 +80,21 @@ export default function Navbar() {
 
               <Chip
                 label={ROLE_NAMES[userRole]}
-                sx={{ background: 'rgba(101, 31, 255, 0.1)', color: '#651fff', border: '1px solid rgba(101, 31, 255, 0.3)', fontWeight: 700 }}
+                sx={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbfcce', fontWeight: 700 }}
                 size="medium"
               />
 
               <Chip
-                icon={<AccountBalanceWalletIcon style={{ color: '#00b8d4' }} />}
+                icon={<AccountBalanceWalletIcon style={{ color: '#8B1D1D' }} />}
                 label={`${account.slice(0, 6)}...${account.slice(-4)}`}
-                sx={{ background: 'rgba(0, 184, 212, 0.1)', color: '#008ba3', border: '1px solid rgba(0, 184, 212, 0.3)', fontWeight: 700 }}
+                sx={{ background: '#FCFBF7', color: '#1A0D0D', border: '1px solid #E5E1D1', fontWeight: 700 }}
               />
 
               <Button
                 variant="outlined"
                 size="small"
                 onClick={disconnectWallet}
-                sx={{ ml: 1, borderColor: 'rgba(0,0,0,0.1)', color: '#f44336', '&:hover': { borderColor: '#f44336', background: 'rgba(244,67,54,0.05)' } }}
+                sx={{ ml: 1, borderColor: '#E5E1D1', color: '#ef4444', '&:hover': { borderColor: '#ef4444', background: '#fef2f2' } }}
               >
                 Disconnect
               </Button>
@@ -115,7 +104,7 @@ export default function Navbar() {
           {!account && (
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               startIcon={<AccountBalanceWalletIcon />}
               component={Link}
               to="/login"

@@ -23,11 +23,16 @@ function AppContent() {
     <Router>
       <Navbar />
       
-      {/* Hyper-Modern Glowing Animated Background - Light Mode */}
-      <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: -1, overflow: 'hidden', background: '#f4f7fb' }}>
-        <Box sx={{ position: 'absolute', top: '-10%', left: '-5%', width: '60vw', height: '60vw', background: 'radial-gradient(circle, rgba(124,77,255,0.1) 0%, transparent 65%)', filter: 'blur(80px)', animation: 'float 15s ease-in-out infinite alternate' }} />
-        <Box sx={{ position: 'absolute', bottom: '-15%', right: '-10%', width: '70vw', height: '70vw', background: 'radial-gradient(circle, rgba(0,229,255,0.15) 0%, transparent 65%)', filter: 'blur(90px)', animation: 'float 18s ease-in-out infinite alternate-reverse' }} />
-      </Box>
+      {/* Professional Soft Background */}
+      <Box sx={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        bottom: 0, 
+        zIndex: -1, 
+        background: 'linear-gradient(180deg, #FCFBF7 0%, #F5F2E1 100%)' 
+      }} />
 
       <Box sx={{ pt: { xs: 14, md: 18 }, pb: 8, minHeight: '100vh', position: 'relative', zIndex: 1 }}>
         <Routes>

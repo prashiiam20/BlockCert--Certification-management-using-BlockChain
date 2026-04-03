@@ -29,9 +29,9 @@ async function main() {
 
   // Grant roles (enum: NONE=0, GOVERNMENT=1, REGULATORY=2, INSTITUTION=3, STUDENT=4, RECRUITER=5)
   console.log("\n📝 Granting roles...");
-  await registry.grantRole(deployer.address, 3); // INSTITUTION – so first signer can issue certs
-  await registry.grantRole(signer1.address, 4); // STUDENT
-  await registry.grantRole(signer2.address, 5); // RECRUITER
+  await registry.grantRole(deployer.address, 1); // GOVERNMENT (Admin)
+  await registry.grantRole(signer1.address, 3); // INSTITUTION (Issuer)
+  await registry.grantRole(signer2.address, 4); // STUDENT (Holder)
   
   console.log("✅ Roles granted");
   console.log("\n🎉 Deployment complete!");

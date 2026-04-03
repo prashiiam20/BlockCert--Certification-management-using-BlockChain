@@ -33,3 +33,4 @@ coverage.json
 keys/
 certificates/*.pdf
 frontend/test Accounts
+venv/

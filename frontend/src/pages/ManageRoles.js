@@ -17,7 +17,7 @@ import { EthereumContext } from '../context/EthereumContext';
 import { ROLES, ROLE_NAMES } from '../config/contracts';
 
 export default function ManageRoles() {
-  const { contract, userRole } = useContext(EthereumContext);
+  const { account, contract, userRole, adminAddress } = useContext(EthereumContext);
   const [address, setAddress] = useState('');
   const [role, setRole] = useState(3); // Default to INSTITUTION
   const [loading, setLoading] = useState(false);
@@ -43,11 +43,17 @@ export default function ManageRoles() {
     }
   };
 
-  if (userRole !== ROLES.GOVERNMENT && userRole !== ROLES.REGULATORY) {
+  // Permission check: Role must be GOVERNMENT/REGULATORY OR user must be the contract admin
+  const isAuthorized = 
+    userRole == ROLES.GOVERNMENT || 
+    userRole == ROLES.REGULATORY || 
+    (account && adminAddress && account.toLowerCase() === adminAddress.toLowerCase());
+
+  if (!isAuthorized) {
     return (
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Alert severity="error">
-          You don't have permission to manage roles. Only Government or Regulatory Authority can manage roles.
+          You don't have permission to manage roles. Only Government or Regulatory Authority (or the contract Admin) can manage roles.
         </Alert>
       </Container>
     );

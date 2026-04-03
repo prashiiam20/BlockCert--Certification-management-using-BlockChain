@@ -1,0 +1,18 @@
+graph TD
+    A[Frontend: UI & Encryption] -->|ChaCha20-Poly1305| B[IPFS: Encrypted Binary Storage]
+    A -->|EIP-191 Deterministic Keys| C[Institution Registry Vault]
+    A -->|Universal Branded QR| D[Verifier: Managed Asset Viewer]
+    
+    subgraph Storage Layer
+    B
+    end
+
+    subgraph Blockchain Layer
+    C -->|Smart Contracts| E[Binance Smart Chain]
+    F[Role-Based Access Control] --> E
+    end
+
+    subgraph UX & Verification
+    D -->|Hash Match| E
+    D -->|Decrypt Payload| B
+    end

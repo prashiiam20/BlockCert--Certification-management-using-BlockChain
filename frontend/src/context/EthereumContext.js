@@ -12,6 +12,7 @@ export const EthereumProvider = ({ children }) => {
   const [contract, setContract] = useState(null);
   const [network, setNetwork] = useState('localhost');
   const [userRole, setUserRole] = useState(0);
+  const [adminAddress, setAdminAddress] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const disconnectWallet = () => {
@@ -89,6 +90,10 @@ export const EthereumProvider = ({ children }) => {
         const role = await contract.roles(address);
         console.log(`[BlockCert Debug] Role fetched: ${role}`);
         setUserRole(role);
+
+        // Also fetch admin address
+        const admin = await contract.admin();
+        setAdminAddress(admin);
       }
     } catch (error) {
       console.error('[BlockCert Debug] Error loading contract or roles:', error);
@@ -188,6 +193,7 @@ export const EthereumProvider = ({ children }) => {
       contract,
       network,
       userRole,
+      adminAddress,
       loading,
       connectWallet,
       disconnectWallet,
