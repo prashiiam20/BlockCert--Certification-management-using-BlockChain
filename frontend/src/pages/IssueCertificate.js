@@ -40,6 +40,8 @@ import SecurityIcon from '@mui/icons-material/Security';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import LinkIcon from '@mui/icons-material/Link';
+import BrandedQR from '../components/BrandedQR';
 import { BarChart } from '@mui/x-charts/BarChart';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import PublicIcon from '@mui/icons-material/Public';
