@@ -43,17 +43,16 @@ export default function ManageRoles() {
     }
   };
 
-  // Permission check: Role must be GOVERNMENT/REGULATORY OR user must be the contract admin
+  // Permission check: Role must be GOVERNMENT/REGULATORY
   const isAuthorized = 
     Number(userRole) === ROLES.GOVERNMENT || 
-    Number(userRole) === ROLES.REGULATORY || 
-    (account && adminAddress && account.toLowerCase() === adminAddress.toLowerCase());
+    Number(userRole) === ROLES.REGULATORY;
 
   if (!isAuthorized) {
     return (
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Alert severity="error">
-          You don't have permission to manage roles. Only Government or Regulatory Authority (or the contract Admin) can manage roles.
+          You don't have permission to manage roles. Only Government or Regulatory Authority can access this panel.
         </Alert>
       </Container>
     );

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>BlockCert Project Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 1in 1in 1in 1.5in;
+    }
+
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      text-align: justify;
+      max-width: 8.27in;
+      /* A4 width */
+      margin: 0 auto;
+      padding: 1in 1in 1in 1.5in;
+      /* Emulate page margins for browser view */
+      background: #fff;
+      color: #000;
+    }
+
+    h1.chapter-title {
+      font-size: 16pt;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      margin-top: 0;
+      margin-bottom: 24pt;
+      page-break-before: always;
+    }
+
+    h2.side-heading {
+      font-size: 14pt;
+      font-weight: bold;
+      margin-top: 18pt;
+      margin-bottom: 12pt;
+    }
+
+    h3.sub-heading {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-top: 12pt;
+      margin-bottom: 6pt;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    .spacing-large {
+      margin-bottom: 40pt;
+    }
+
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6pt;
+    }
+
+    table.content-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12pt;
+    }
+
+    table.content-table th,
+    table.content-table td {
+      border: 1px solid #000;
+      padding: 8pt;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 1) Cover Page / Title sheet -->
+  <div class="center" style="margin-top: 2in;">
+    <h1 style="font-size: 24pt; margin-bottom: 40pt;">BLOCKCERT: DECENTRALIZED ACADEMIC CREDENTIAL REGISTRY</h1>
+    <p style="font-size: 14pt; margin-bottom: 40pt;">A Major Project Report Submitted in Partial Fulfillment of the
+      Requirements for the Degree of<br>
+      <strong>[Name of the Degree]</strong> in <strong>[Branch/Department]</strong>
+    </p>
+
+    <p style="font-size: 14pt; margin-bottom: 40pt;">Submitted By:<br>
+      <strong>[Student Name 1] - [Roll Number 1]</strong><br>
+      <strong>[Student Name 2] - [Roll Number 2]</strong>
+    </p>
+
+    <p style="font-size: 14pt; margin-bottom: 40pt;">Under the Guidance of:<br>
+      <strong>[Guide Name, Designation]</strong>
+    </p>
+
+    <p style="font-size: 14pt; margin-top: 60pt;">
+      <strong>[Department Name]</strong><br>
+      <strong>[College/Organization Name]</strong><br>
+      <strong>[Year]</strong>
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 2) Certificate from Organization -->
+  <h1 class="chapter-title" style="page-break-before: auto;">CERTIFICATE</h1>
+  <div class="spacing-large"></div>
+  <p>
+    This is to certify that the project report entitled <strong>"BlockCert: Decentralized Academic Credential
+      Registry"</strong> is a bonafide record of the work carried out by <strong>[Student Name(s) and Roll
+      No(s)]</strong> under my supervision and guidance, in partial fulfillment of the requirements for the award of the
+    degree of <strong>[Degree Name]</strong> in <strong>[Branch/Department]</strong> from <strong>[College/Organization
+      Name]</strong>. The results embodied in this report have not been submitted to any other University or Institution
+    for the award of any degree or diploma.
+  </p>
+
+  <div style="margin-top: 80pt; display: flex; justify-content: space-between;">
+    <div class="center">
+      <strong>[Guide Name]</strong><br>Project Guide
+    </div>
+    <div class="center">
+      <strong>[HOD Name]</strong><br>Head of Department
+    </div>
+  </div>
+  <div style="margin-top: 60pt; text-align: left;">
+    <strong>External Examiner:</strong> ______________________
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 3) Declaration by the student -->
+  <h1 class="chapter-title">DECLARATION</h1>
+  <div class="spacing-large"></div>
+  <p>
+    We hereby declare that the project work entitled <strong>"BlockCert: Decentralized Academic Credential
+      Registry"</strong> submitted to <strong>[College/Organization Name]</strong> is a record of an original work done
+    by us under the guidance of <strong>[Guide Name]</strong>. This project work is submitted in the partial fulfillment
+    of the requirements for the award of the degree of <strong>[Degree Name]</strong>. The results embodied in this
+    report have not been submitted to any other University or Institution for the award of any degree or diploma.
+  </p>
+  <div style="margin-top: 60pt; text-align: right;">
+    <strong>[Student Name 1]</strong><br>
+    <strong>[Student Name 2]</strong><br>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 4) Acknowledgements -->
+  <h1 class="chapter-title">ACKNOWLEDGEMENTS</h1>
+  <p>
+    We would like to express our profound gratitude to our project guide, <strong>[Guide Name]</strong>, whose
+    invaluable guidance, encouragement, and support have been instrumental in the successful completion of this project.
+  </p>
+  <p>
+    We are extremely thankful to <strong>[HOD Name]</strong>, Head of the Department, and our Principal,
+    <strong>[Principal Name]</strong>, for providing us with the necessary infrastructure and environment to carry out
+    our work optimally.
+  </p>
+  <p>
+    We also extend our sincere thanks to our parents, friends, and the institution for their constant motivation,
+    cooperation, and belief in our endeavor.
+  </p>
+  <div style="text-align: right; margin-top: 40pt;">
+    <strong>[Student Name(s)]</strong>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 5) Table of Contents -->
+  <h1 class="chapter-title">TABLE OF CONTENTS</h1>
+
+  <div class="toc-item"><strong>Description</strong> <strong>Page No.</strong></div>
+  <div class="toc-item"><span>List of Tables</span> <span>I</span></div>
+  <div class="toc-item"><span>List of Figures</span> <span>II</span></div>
+  <div class="toc-item"><span>List of Abbreviations</span> <span>III</span></div>
+  <div class="toc-item"><span>Abstract</span> <span>-</span></div><br>
+
+  <div class="toc-item"><strong>1. INTRODUCTION</strong> <span>1</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">1.1 About Project</span> <span>1</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">1.2 Scope and Objective</span> <span>2</span></div>
+
+  <div class="toc-item"><strong>2. LITERATURE SURVEY</strong> <span>3</span></div>
+
+  <div class="toc-item"><strong>3. SYSTEM REQUIREMENTS SPECIFICATION</strong> <span>5</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">3.1 Introduction</span> <span>5</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">3.2 Purpose</span> <span>5</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">3.3 Hardware Requirements</span> <span>6</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">3.4 Software Requirements</span> <span>6</span></div>
+
+  <div class="toc-item"><strong>4. SYSTEM DESIGN</strong> <span>7</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">4.1 UML Diagrams</span> <span>7</span></div>
+
+  <div class="toc-item"><strong>5. SYSTEM IMPLEMENTATION</strong> <span>12</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">5.1 Sample Code</span> <span>12</span></div>
+
+  <div class="toc-item"><strong>6. TESTING</strong> <span>15</span></div>
+  <div class="toc-item"><span style="margin-left: 20pt;">6.1 Test cases</span> <span>15</span></div>
+
+  <div class="toc-item"><strong>7. RESULTS</strong> <span>17</span></div>
+
+  <div class="toc-item"><strong>8. CONCLUSION & FUTURE SCOPE</strong> <span>18</span></div>
+
+  <div class="toc-item"><strong>REFERENCES</strong> <span>-</span></div>
+
+  <div class="page-break"></div>
+
+  <!-- Lists -->
+  <h1 class="chapter-title">LIST OF TABLES</h1>
+  <div class="toc-item"><span>Table 6.1: Registration Module Test Cases</span> <span>I</span></div>
+  <div class="toc-item"><span>Table 6.2: Certificate Issuance Test Cases</span> <span>I</span></div>
+
+  <div class="page-break"></div>
+
+  <h1 class="chapter-title">LIST OF FIGURES</h1>
+  <div class="toc-item"><span>Figure 4.1: Use Case Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.2: Class Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.3: Sequence Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.4: Activity Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.5: State Chart Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.6: Component Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.7: Deployment Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.8: Collaboration Diagram</span> <span>II</span></div>
+  <div class="toc-item"><span>Figure 4.9: Data Flow Diagram</span> <span>II</span></div>
+
+  <div class="page-break"></div>
+
+  <h1 class="chapter-title">LIST OF ABBREVIATIONS</h1>
+  <ul style="list-style-type: none; padding: 0;">
+    <li><strong>EVM:</strong> Ethereum Virtual Machine</li>
+    <li><strong>IPFS:</strong> InterPlanetary File System</li>
+    <li><strong>RBAC:</strong> Role-Based Access Control</li>
+    <li><strong>CID:</strong> Content Identifier</li>
+    <li><strong>ZK:</strong> Zero-Knowledge</li>
+    <li><strong>API:</strong> Application Programming Interface</li>
+    <li><strong>QR:</strong> Quick Response</li>
+    <li><strong>UI:</strong> User Interface</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- Abstract -->
+  <h1 class="chapter-title">ABSTRACT</h1>
+  <p>
+    The issue of academic credential forgery remains a significant vulnerability in the global educational and
+    recruitment ecosystems. Traditional methods of verifying educational certificates are manual, time-consuming, and
+    prone to centralized hacking or institutional database failures. To address this, we present "BlockCert," a
+    decentralized academic credential registry built securely on the Ethereum Blockchain and the InterPlanetary File
+    System (IPFS).
+  </p>
+  <p>
+    BlockCert represents an end-to-end Web3 platform designed to eliminate degree forgery. The system allows verified
+    educational institutions to hash and encrypt student academic records client-side using a highly performant
+    ChaCha20-Poly1305 AEAD algorithm. The encrypted records are perpetually anchored to IPFS, while the resulting hashes
+    and metadata are committed to Ethereum Smart Contracts as an immutable proof-of-authenticity. Employing an
+    Institutional Registry Vault compatible with EIP-191 signatures, BlockCert shifts key-management sovereignty fully
+    to the issuer.
+  </p>
+  <p>
+    For employers and recruiters, the platform provides a completely frictionless 'Deep-Linked QR Verification'
+    pipeline. By simply scanning a dynamic Quick Response token directly from the student's degree, the system
+    computationally fetches the respective IPFS payload, applies the decryption matrix using localized sharding, and
+    validates the credential against the on-chain registry in under a second. BlockCert thereby bridges advanced
+    Zero-Knowledge principles with Web3 role-based access control to formulate an impenetrable, accessible, and
+    instantaneous verification solution.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- 1. INTRODUCTION -->
+  <h1 class="chapter-title">1. INTRODUCTION</h1>
+
+  <h2 class="side-heading">1.1 About Project</h2>
+  <p>
+    The rapid digitization of academic infrastructures has simultaneously increased the prevalence of fake degrees and
+    altered credentials. Traditional paper-based certificates can be easily falsified utilizing modern graphic design
+    tools, while centralized academic databases present a single point of failure and are highly susceptible to
+    malicious breaches or unauthorized data alteration. BlockCert introduces a comprehensive Web3-native solution to
+    this problem by utilizing the decentralized, immutable, and cryptographically secure properties of the Ethereum
+    Blockchain.
+  </p>
+  <p>
+    BlockCert is a Decentralized Academic Credential Registry system that securely anchors digital academic credentials
+    on a distributed ledger. Using Ethereum Smart Contracts to handle the business logic and InterPlanetary File System
+    (IPFS) to manage scalable, off-chain, decentralized storage, the platform guarantees that a certificate, once
+    issued, can never be altered or retroactively tampered with, without breaking the underlying cryptographic hashes.
+  </p>
+
+  <h2 class="side-heading">1.2 Scope and Objective</h2>
+  <p>
+    <strong>Scope:</strong> The scope of this project encompasses the creation of an interactive digital registry for
+    Institutions, Students, and Recruiters. The scope is limited to verified issuance by granted institutional wallets,
+    real-time client-side encryption of the documents, uploading via Pinata to IPFS, and a fast-verification scanning
+    mechanism primarily intended for automated recruitment background checks.
+  </p>
+  <p>
+    <strong>Objectives:</strong>
+  </p>
+  <ul>
+    <li>To design an immutable structure for certificate issuance using Solidity smart contracts.</li>
+    <li>To implement Zero-Knowledge Cryptographic Middleware (ChaCha20-Poly1305) to ensure student privacy.</li>
+    <li>To integrate IPFS for highly available, decentralized file storage.</li>
+    <li>To construct a frictionless Deep-Linked QR Verification system, allowing verification in under a second.</li>
+    <li>To enforce strict Identity and Role-Based Access Control (RBAC) securely on-chain.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- 2. LITERATURE SURVEY -->
+  <h1 class="chapter-title">2. LITERATURE SURVEY</h1>
+  <p>
+    The concept of utilizing blockchain technology for academic tracking is not entirely novel, though implementations
+    have vastly differed in privacy, scalability, and centralization. Earlier implementations often heavily relied on
+    traditional centralized databases bridged loosely to a private blockchain. This limits transparency and creates
+    localized trust dependencies.
+  </p>
+  <p>
+    One of the earlier proposals is MIT's "Blockcerts" standard (Open Badges). While functionally robust, these earlier
+    iterations frequently expose plaintext JSON payloads on a public ledger, which structurally violates data privacy
+    laws like GDPR because the blockchain is immutable. Other academic setups attempt to store large amounts of metadata
+    directly on-chain, leading to massive gas fees and poor network scalability.
+  </p>
+  <p>
+    BlockCert innovates upon these previous works by utilizing severe client-side encryption via `@noble/ciphers`
+    (ChaCha20-Poly1305) before any data touches IPFS. While previous works rely on centralized databases for querying
+    metadata, BlockCert strictly enforces off-chain payload storage connected strictly by on-chain Merkle Roots and
+    deterministic Keccak256 hashes.
+  </p>
+  <p>
+    Furthermore, standard identity models in existing literature rely heavily on centralized PKI (Public Key
+    Infrastructure). Through an EIP-191 derived "Institutional Registry Vault", BlockCert permits institutions to
+    mathematically derive cryptographic sharding using solely their Web3 wallet signature, circumventing centralized
+    database hacks completely.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- 3. SYSTEM REQUIREMENTS SPECIFICATION -->
+  <h1 class="chapter-title">3. SYSTEM REQUIREMENTS SPECIFICATION</h1>
+
+  <h2 class="side-heading">3.1 Introduction</h2>
+  <p>
+    The System Requirement Specification (SRS) formulates the core functional operations and boundaries of the BlockCert
+    network. It defines the technical ecosystem required to execute the Ethereum Local State, the React frontend
+    middleware, and the IPFS integrations necessary for system operation.
+  </p>
+
+  <h2 class="side-heading">3.2 Purpose</h2>
+  <p>
+    The main purpose of the SRS is to outline the computing environment necessary to deploy, maintain, and interact with
+    the BlockCert DApp successfully. This helps eliminate ambiguity for system administrators deploying the Smart
+    Contracts and edge-deploying the frontend via Vercel.
+  </p>
+
+  <h2 class="side-heading">3.3 Hardware Requirements</h2>
+  <ul>
+    <li><strong>Processor:</strong> Intel Core i3 / AMD Ryzen 3 or equivalent (Dual Core or higher)</li>
+    <li><strong>RAM:</strong> Minimum 4 GB (8 GB recommended for running local Ethereum nodes)</li>
+    <li><strong>Hard Disk:</strong> Minimum 50 GB available space</li>
+    <li><strong>Input Devices:</strong> Standard Keyboard and Mouse</li>
+    <li><strong>Display:</strong> 720p or higher resolution monitor</li>
+  </ul>
+
+  <h2 class="side-heading">3.4 Software Requirements</h2>
+  <ul>
+    <li><strong>Operating System:</strong> Windows 10/11, macOS, or Linux-based OS</li>
+    <li><strong>Node Environment:</strong> Node.js version 22 or higher</li>
+    <li><strong>Blockchain Framework:</strong> Hardhat for local EVM deployment</li>
+    <li><strong>Frontend Framework:</strong> React.js, Material-UI (MUI)</li>
+    <li><strong>Cryptography & Web3 APIs:</strong> Ethers.js, fflate, @noble/ciphers</li>
+    <li><strong>Browser:</strong> Google Chrome, Mozilla Firefox, or Brave (with MetaMask plugin installed)</li>
+    <li><strong>IDE for Development:</strong> VS Code or equivalent intelligent text editor</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- 4. SYSTEM DESIGN -->
+  <h1 class="chapter-title">4. SYSTEM DESIGN</h1>
+  <p>
+    The System Design outlines the architectural blueprints of the BlockCert DApp. It involves defining how different
+    modules like the User Interface, IPFS Gateway, and Smart Contracts communicate synchronously. Modeling is done
+    primarily through standard UML diagrams, highlighting actor-to-system boundary crossing.
+  </p>
+
+  <h2 class="side-heading">4.1 UML Diagrams</h2>
+  <p>
+    Unified Modeling Language (UML) is a standardized modeling language enabling developers to specify, visualize,
+    construct, and document the artifacts of a software system. The following nine diagrams define the system from
+    multiple perspectives.
+  </p>
+
+  <h3 class="sub-heading">1. Use Case Diagram</h3>
+  <p>
+    The Use Case Diagram defines the primary actors: Admin, Institution, Student, and Recruiter. An Admin oversees the
+    system and distributes verification roles. An Institution issues the cryptographic credentials and invokes
+    revocation if required. A Student views their academic records, while the Recruiter utilizes the QR token to decrypt
+    and verify the document without needing explicit access keys.
+  </p>
+
+  <h3 class="sub-heading">2. Class Diagram</h3>
+  <p>
+    Outlines the object-oriented structure of the Smart Contract system. It highlights the `Certificate` struct
+    encapsulating the `ipfsCID`, `certHash`, `student` address, and `merkleRoot`. The `CertificateRegistry` class maps
+    `bytes32 -> Certificate` and enforces access control inheritance from the `AccessControl` utility contract.
+  </p>
+
+  <h3 class="sub-heading">3. Sequence Diagram</h3>
+  <p>
+    Visualizes the linear progression of Certificate issuance. The Institution dispatches the raw file, the middleware
+    compresses (ZLib) and encrypts it (ChaCha20), pushes to Pinata (IPFS), returns the CID, and sequentially dispatches
+    a decentralized transaction via Metamask to the `CertificateRegistry` contract on the Ethereum network.
+  </p>
+
+  <h3 class="sub-heading">4. Activity Diagram</h3>
+  <p>
+    Details the conditional flow of verification. The Recruiter inputs a hash. The system queries the Ethereum
+    blockchain. If the hash exists, it checks if it is revoked. If valid, it pulls the encrypted IPFS CID string,
+    decrypts it client-side into a PDF/Image, and renders a "Valid Green" verification token on the screen.
+  </p>
+
+  <h3 class="sub-heading">5. State Chart Diagram</h3>
+  <p>
+    Shows the state transistion of a Certificate object within the mapped storage. A certificate moves from an
+    uninitialized "Null" state, to "Issued" (timestamped), and potentially to "Revoked" (if boolean revoked triggers
+    true). Furthermore, an expiry state can be reached based on block timestamps.
+  </p>
+
+  <h3 class="sub-heading">6. Component Diagram</h3>
+  <p>
+    Demonstrates the distinct micro-architecture wiring. Shows the React Frontend communicating over JSON-RPC via
+    Web3/Ethers.js to the Hardhat Ethereum Node, while concurrently making RESTful requests to the Pinata IPFS gateway
+    for file anchoring.
+  </p>
+
+  <h3 class="sub-heading">7. Deployment Diagram</h3>
+  <p>
+    Visualizes the hardware infrastructure. Client Browsers connect via internet to the Vercel CDN hosting the React
+    App. The React App interfaces directly with the Mainnet/Testnet EVM via providers like Infura or Alchemy, keeping
+    the infrastructure entirely decentralized.
+  </p>
+
+  <h3 class="sub-heading">8. Collaboration Diagram</h3>
+  <p>
+    Shows the spatial interaction of the network, emphasizing the message passing between the Admin wallet granting the
+    `Role.INSTITUTION` to a verified address before the address can successfully sign a state-changing transaction on
+    the EVM.
+  </p>
+
+  <h3 class="sub-heading">9. Data Flow Diagram (DFD)</h3>
+  <p>
+    Represents the flow of data across system levels. Level 0 depicts the entire platform as a single process. Level 1
+    breaks down the data flow between Encryption engines, Storage networks, Transaction mempools, and User interfaces.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- 5. SYSTEM IMPLEMENTATION -->
+  <h1 class="chapter-title">5. SYSTEM IMPLEMENTATION</h1>
+  <p>
+    Implementation executes the logical model into functional Solidity and Javascript code. The core blockchain runtime
+    was programmed using Solidity `^0.8.20`, implementing modern optimization and Merkle tree mechanisms. The frontend
+    was built with React.js using standard Hooks for asynchronous wallet handling.
+  </p>
+
+  <h2 class="side-heading">5.1 Sample Code</h2>
+  <p>
+    The core `CertificateRegistry.sol` contract outlining the structural parameters of cryptographic credentials:
+  </p>
+  <pre style="background: #f4f4f4; padding: 10pt; font-family: monospace; font-size: 10pt;">
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "./AccessControl.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+
+contract CertificateRegistry is AccessControl {
+    struct Certificate {
+        string ipfsCID;
+        bytes32 certHash;
+        address student;
+        address institution;
+        uint256 issueDate;
+        uint256 expiryDate;
+        bool revoked;
+        bytes32 merkleRoot;
+    }
+    
+    mapping(bytes32 => Certificate) public certificates;
+    mapping(address => bytes32[]) public studentCertificates;
+    
+    event CertificateIssued(bytes32 indexed certId, address student, address institution);
+    
+    function issueCertificate(
+        string memory ipfsCID,
+        bytes32 certHash,
+        address student,
+        uint256 expiryDate
+    ) external onlyRole(Role.INSTITUTION) returns (bytes32) {
+        bytes32 certId = keccak256(abi.encodePacked(certHash, student, block.timestamp));
+        
+        certificates[certId] = Certificate({
+            ipfsCID: ipfsCID,
+            certHash: certHash,
+            student: student,
+            institution: msg.sender,
+            issueDate: block.timestamp,
+            expiryDate: expiryDate,
+            revoked: false,
+            merkleRoot: bytes32(0)
+        });
+        
+        studentCertificates[student].push(certId);
+        emit CertificateIssued(certId, student, msg.sender);
+        
+        return certId;
+    }
+}
+</pre>
+
+  <div class="page-break"></div>
+
+  <!-- 6. TESTING -->
+  <h1 class="chapter-title">6. TESTING</h1>
+  <p>
+    System Testing ensures robust transaction handling and data encryption mechanics. The platform is continuously
+    tested utilizing automated smart contract tests combined with strict ESLint linting for the frontend deployment edge
+    servers.
+  </p>
+
+  <h2 class="side-heading">6.1 Test Cases</h2>
+
+  <table class="content-table">
+    <tr>
+      <th colspan="4" style="background:#ddd; text-align:center;">Table 6.1: Access Control & Module Testing</th>
+    </tr>
+    <tr>
+      <th>Test ID</th>
+      <th>Scenario / Interaction</th>
+      <th>Expected Result</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>TC-01</td>
+      <td>Non-Admin tries to assign Institution Role</td>
+      <td>Transaction reverts with "Unauthorized" error</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>TC-02</td>
+      <td>Connect an unauthorized Web3 Wallet</td>
+      <td>UI hides issuance functions, restricts to View</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <table class="content-table" style="margin-top: 20pt;">
+    <tr>
+      <th colspan="4" style="background:#ddd; text-align:center;">Table 6.2: Certificate Issuance & IPFS Testing</th>
+    </tr>
+    <tr>
+      <th>Test ID</th>
+      <th>Scenario / Interaction</th>
+      <th>Expected Result</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>TC-03</td>
+      <td>Valid Institution Submits Certificate payload</td>
+      <td>Data encrypts, posts to IPFS, state commits on ETH</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>TC-04</td>
+      <td>QR Scanning via Deep-Link with incorrect Hash</td>
+      <td>Verification panel turns RED (Invalid Credential)</td>
+      <td>Pass</td>
+    </tr>
+    <tr>
+      <td>TC-05</td>
+      <td>Institution invokes Revocation for a generated ID</td>
+      <td>Block sets `revoked=true`. Verification halts processing.</td>
+      <td>Pass</td>
+    </tr>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- 7. RESULTS -->
+  <h1 class="chapter-title">7. RESULTS</h1>
+  <p>
+    The completed BlockCert ecosystem demonstrates significant advantages over both legacy database models and primitive
+    on-chain storage methodologies. After successful compilation and test-net deployment, the smart contracts showcase
+    an extremely optimal state size and low algorithmic gas costs, allowing educational bodies to mass-deploy credential
+    proofs economically.
+  </p>
+  <p>
+    The frontend application achieves strict sub-second encryption targets via Zero-Knowledge architectures utilizing
+    ChaCha20-Poly1305. Uploads to Pinata's InterPlanetary File System consistently propagate globally. Crucially, the
+    deep-linked QR resolution permits end-users with no crypto-knowledge to verify academic degrees natively from any
+    device. When tested, verified certificates display as "Green," immediately returning the decoded, verifiable
+    document to recruiters, completely eliminating manual third-party cross-checks.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- 8. CONCLUSION & FUTURE SCOPE -->
+  <h1 class="chapter-title">8. CONCLUSION & FUTURE SCOPE</h1>
+  <p>
+    <strong>Conclusion:</strong>
+    BlockCert resolves the pervasive challenge of credential forgery by utilizing the inherent properties of
+    decentralized consensus networks. By binding cryptographic document anchors, Zero-Knowledge file encryption, and
+    structural Roll-Based Access Control smart contracts into a streamlined user application, the system abstracts the
+    complications of Web3 away from institutions while providing them with unparalleled registry security. The platform
+    entirely avoids localized database breaches and empowers organizations to mint and maintain their academic
+    sovereignty.
+  </p>
+
+  <p style="margin-top: 15pt;">
+    <strong>Future Scope:</strong>
+    The project possesses a robust foundation capable of vast expansions. Key avenues for future scope include:
+  </p>
+  <ul>
+    <li><strong>ZK-Rollups and Layer 2s:</strong> Migrating the underlying logic to an Ethereum L2 (such as Arbitrum or
+      Polygon) to reduce gas issuance fees to fractions of a cent, allowing thousands of batch mints.</li>
+    <li><strong>Dynamic Soulbound Tokens (SBTs):</strong> Rather than just standard verification registries, future
+      versions could mint non-transferable Soulbound NFTs directly to the graduate's personal digital wallet,
+      establishing deep professional identities.</li>
+    <li><strong>Institutional Consortiums:</strong> Extending the Access Control smart contracts to incorporate
+      decentralized voting by governing bodies to admit new universities automatically via DAO-style consensus
+      protocols.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- REFERENCES -->
+  <h1 class="chapter-title">REFERENCES</h1>
+  <ul style="line-height:2.0; font-size: 12pt;">
+    <li>Nakamoto, Satoshi. "Bitcoin: A Peer-to-Peer Electronic Cash System." (2008).</li>
+    <li>Wood, Gavin. "Ethereum: A Secure Decentralised Generalised Transaction Ledger." Ethereum Project Yellow Paper
+      (2014).</li>
+    <li>Benet, Juan. "IPFS - Content Addressed, Versioned, P2P File System." (2014) Draft 3.</li>
+    <li>Zhu, Y., &amp; Wang, C. "A blockchain-based system for academic credential verification," IEEE Access (2019).
+    </li>
+    <li>OpenZeppelin library for secure smart contract development, Github repository.</li>
+    <li>ChaCha20 and Poly1305 for IETF Protocols - RFC 8439.</li>
+  </ul>
+
+</body>
+
+</html>

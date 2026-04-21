@@ -66,7 +66,7 @@ export default function VerifyCertificate() {
     if (hash && hash.startsWith('#key=')) {
       const extractedKey = hash.substring(5);
       if (extractedKey.length === 64) {
-        console.log("[BlockCert] One-Tap Key detected in URL fragment");
+        console.log("[AcadVault] One-Tap Key detected in URL fragment");
         setDecryptionKey(extractedKey);
       }
     }
@@ -220,7 +220,7 @@ export default function VerifyCertificate() {
             const success = await handleDecrypt(hexKey);
             if (success) {
               setDecryptionKey(hexKey);
-              console.log(`[BlockCert Hyper-Scanner] MATCH FOUND!`);
+              console.log(`[AcadVault Hyper-Scanner] MATCH FOUND!`);
               return;
             }
           }

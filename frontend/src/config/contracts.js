@@ -16,8 +16,8 @@ export const NETWORKS = {
   sepolia: {
     name: "Ethereum Sepolia",
     chainId: "0xaa36a7",
-    rpcUrl: "https://sepolia.infura.io/v3/",
-    contractAddress: "PASTE_YOUR_SEPOLIA_CONTRACT_ADDRESS",
+    rpcUrl: process.env.REACT_APP_ALCHEMY_SEPOLIA_URL || "https://sepolia.infura.io/v3/",
+    contractAddress: "0x6615eCF699E96cDbbDf944b6C11CceD4968Ea8df",
     blockExplorer: "https://sepolia.etherscan.io"
   }
 };

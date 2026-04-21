@@ -30,8 +30,20 @@ async function main() {
   // Grant roles (enum: NONE=0, GOVERNMENT=1, REGULATORY=2, INSTITUTION=3, STUDENT=4, RECRUITER=5)
   console.log("\n📝 Granting roles...");
   await registry.grantRole(deployer.address, 1); // GOVERNMENT (Admin)
-  await registry.grantRole(signer1.address, 3); // INSTITUTION (Issuer)
-  await registry.grantRole(signer2.address, 4); // STUDENT (Holder)
+
+  if (signer1) {
+    await registry.grantRole(signer1.address, 3); // INSTITUTION (Issuer)
+    console.log("   - INSTITUTION role granted to:", signer1.address);
+  } else {
+    console.log("   - Skipping INSTITUTION role (Signer 2 not found in .env)");
+  }
+
+  if (signer2) {
+    await registry.grantRole(signer2.address, 4); // STUDENT (Holder)
+    console.log("   - STUDENT role granted to:", signer2.address);
+  } else {
+    console.log("   - Skipping STUDENT role (Signer 3 not found in .env)");
+  }
   
   console.log("✅ Roles granted");
   console.log("\n🎉 Deployment complete!");

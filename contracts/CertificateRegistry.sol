@@ -2,7 +2,6 @@
 pragma solidity ^0.8.20;
 
 import "./AccessControl.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract CertificateRegistry is AccessControl {
     struct Certificate {
@@ -13,7 +12,6 @@ contract CertificateRegistry is AccessControl {
         uint256 issueDate;
         uint256 expiryDate;
         bool revoked;
-        bytes32 merkleRoot;
     }
     
     mapping(bytes32 => Certificate) public certificates;
@@ -23,7 +21,6 @@ contract CertificateRegistry is AccessControl {
     
     event CertificateIssued(bytes32 indexed certId, address student, address institution);
     event CertificateRevoked(bytes32 indexed certId, uint256 timestamp);
-    event BatchIssued(bytes32 indexed merkleRoot, uint256 count);
     
     function issueCertificate(
         string memory ipfsCID,
@@ -40,8 +37,7 @@ contract CertificateRegistry is AccessControl {
             institution: msg.sender,
             issueDate: block.timestamp,
             expiryDate: expiryDate,
-            revoked: false,
-            merkleRoot: bytes32(0)
+            revoked: false
         });
         
         studentCertificates[student].push(certId);
@@ -50,26 +46,13 @@ contract CertificateRegistry is AccessControl {
         return certId;
     }
     
-    function issueBatch(
-        bytes32 merkleRoot,
-        uint256 count
-    ) external onlyRole(Role.INSTITUTION) {
-        emit BatchIssued(merkleRoot, count);
-    }
-    
     function verifyCertificate(
-        bytes32 certId,
-        bytes32[] memory proof,
-        bytes32 merkleRoot
+        bytes32 certId
     ) public view returns (bool) {
         Certificate memory cert = certificates[certId];
         
         if(cert.revoked) return false;
         if(cert.expiryDate > 0 && block.timestamp > cert.expiryDate) return false;
-        
-        if(merkleRoot != bytes32(0)) {
-            return MerkleProof.verify(proof, merkleRoot, certId);
-        }
         
         return cert.certHash != bytes32(0);
     }

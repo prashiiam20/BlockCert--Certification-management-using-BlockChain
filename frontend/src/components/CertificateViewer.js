@@ -59,7 +59,7 @@ export default function CertificateViewer({ open, onClose, certData, metadata })
     printWindow.document.write(`
       <html>
         <head>
-          <title>BlockCert - Document Receipt</title>
+          <title>AcadVault - Document Receipt</title>
           <style>
             body { font-family: sans-serif; padding: 40px; text-align: center; }
             .frame { border: 20px solid #f1f5f9; padding: 40px; }
@@ -68,7 +68,7 @@ export default function CertificateViewer({ open, onClose, certData, metadata })
         </head>
         <body>
           <div class="frame">
-            <h2>OFFICIAL BLOCKCERT CREDENTIAL</h2>
+            <h2>OFFICIAL ACADVAULT CREDENTIAL</h2>
             <p>ID: ${metadata.id}</p>
             ${certData.type.startsWith('image/') 
               ? `<img src="${certData.url}" />` 
@@ -85,7 +85,7 @@ export default function CertificateViewer({ open, onClose, certData, metadata })
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = certData.url;
-    link.download = `BlockCert_${metadata.id.slice(0, 8)}.${certData.type.split('/')[1] || 'asset'}`;
+    link.download = `AcadVault_${metadata.id.slice(0, 8)}.${certData.type.split('/')[1] || 'asset'}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

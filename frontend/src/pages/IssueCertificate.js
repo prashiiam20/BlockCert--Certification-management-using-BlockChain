@@ -21,9 +21,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Tabs,
-  Tab,
-  Stack,
   Chip
 } from '@mui/material';
 import { EthereumContext } from '../context/EthereumContext';
@@ -297,144 +294,169 @@ export default function IssueCertificate() {
     }
   };
 
-  const [tabValue, setTabValue] = useState(0);
 
   if (result) {
     const shareableUrl = `${window.location.protocol}//${window.location.host}/verify?id=${result.certId}#key=${result.decryptionKey}`;
 
     return (
-      <Container maxWidth="md" sx={{ mt: 8 }}>
+      <Container maxWidth="lg" sx={{ mt: 3 }}>
         <Fade in={true}>
           <Box>
-            <Card elevation={0} sx={{
-              borderRadius: '24px',
-              border: '1px solid #bbfcce',
-              background: 'linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)',
-              textAlign: 'center',
-              p: 5,
-              mb: 4
+            {/* ─── Success Banner ──────────────────────────────── */}
+            <Box sx={{
+              display: 'flex', alignItems: 'center', gap: 2, mb: 2.5,
+              p: 2.5, borderRadius: '16px',
+              background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
+              border: '1px solid #86efac',
             }}>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-                <Avatar sx={{ bgcolor: '#dcfce7', color: '#166534', width: 80, height: 80 }}>
-                  <VerifiedIcon sx={{ fontSize: 40 }} />
-                </Avatar>
-              </Box>
-              <Typography variant="h4" fontWeight={800} color="#166534" gutterBottom>
-                Institutional Issuance Successful
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                The record is now immutable and anchored to the local registry.
-              </Typography>
-
-              <Box sx={{ p: 4, background: '#1A0D0D', borderRadius: '20px', color: '#ffffff', position: 'relative', mb: 4 }}>
-                <Box sx={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', width: 'max-content' }}>
-                  <Chip
-                    icon={<SecurityIcon style={{ color: '#166534', fontSize: '1rem' }} />}
-                    label="REGISTRY-BACKED & VAULT-SECURED"
-                    size="small"
-                    sx={{ bgcolor: '#dcfce7', color: '#166534', fontWeight: 900, border: '2px solid #166534', px: 1 }}
-                  />
-                </Box>
-                <Typography variant="caption" sx={{ color: '#A13D3D', fontWeight: 900, letterSpacing: '1px' }}>
-                  🔒 MASTER DECRYPTION KEY (DO NOT SHARE)
+              <Avatar sx={{ bgcolor: '#166534', color: '#fff', width: 52, height: 52 }}>
+                <VerifiedIcon sx={{ fontSize: 28 }} />
+              </Avatar>
+              <Box sx={{ flex: 1 }}>
+                <Typography variant="h5" fontWeight={800} color="#166534" sx={{ lineHeight: 1.2 }}>
+                  Issuance Successful
                 </Typography>
-                <Typography variant="h5" sx={{ mt: 2, fontWeight: 700, fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                  {result.decryptionKey}
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.3 }}>
+                  Record anchored immutably on-chain  •  Gas Used: {result.gasUsed}
                 </Typography>
-                <Button
-                  startIcon={<ContentCopyIcon />}
-                  onClick={() => handleCopy(result.decryptionKey)}
-                  sx={{ mt: 2, color: '#A13D3D', fontWeight: 800 }}
-                >
-                  {copied ? 'COPIED' : 'COPY MASTER KEY'}
-                </Button>
               </Box>
+              <Chip label="VAULT-SECURED" size="small" icon={<SecurityIcon style={{ color: '#166534', fontSize: 14 }} />}
+                sx={{ bgcolor: '#fff', color: '#166534', fontWeight: 800, border: '2px solid #166534' }} />
+            </Box>
 
-              <Divider sx={{ my: 4 }} />
+            {/* ─── Main Content: Left + Right (Flexbox) ────────── */}
+            <Box sx={{ display: 'flex', gap: 2.5, alignItems: 'flex-start' }}>
 
-              <Typography variant="h6" fontWeight={800} sx={{ mb: 3 }}>
-                Credential Access Options
-              </Typography>
+              {/* ── LEFT COLUMN ────────────────────────────────── */}
+              <Box sx={{ flex: '1 1 0', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
-                <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)} centered>
-                  <Tab icon={<SecurityIcon />} label="Standard Registration" />
-                  <Tab icon={<OfflineBoltIcon />} label="One-Tap Shareable" />
-                </Tabs>
-              </Box>
+                {/* Decryption Key */}
+                <Card elevation={0} sx={{ p: 2, borderRadius: '14px', background: '#1A0D0D', color: '#fff' }}>
+                  <Typography sx={{ color: '#A13D3D', fontWeight: 800, letterSpacing: '0.5px', fontSize: '0.7rem', textTransform: 'uppercase' }}>
+                    🔒 Master Decryption Key — Do Not Share
+                  </Typography>
+                  <Typography sx={{
+                    mt: 0.8, fontFamily: 'monospace', fontSize: '0.73rem',
+                    fontWeight: 600, wordBreak: 'break-all', lineHeight: 1.5, color: '#E5E1D1',
+                  }}>
+                    {result.decryptionKey}
+                  </Typography>
+                  <Button size="small" startIcon={<ContentCopyIcon sx={{ fontSize: 14 }} />}
+                    onClick={() => handleCopy(result.decryptionKey)}
+                    sx={{ mt: 0.5, color: '#A13D3D', fontWeight: 700, fontSize: '0.75rem', p: 0.5 }}
+                  >
+                    {copied ? 'COPIED ✓' : 'COPY KEY'}
+                  </Button>
+                </Card>
 
-              <Grid container spacing={4} justifyContent="center">
-                <Grid item xs={12} md={6}>
-                  <Box sx={{ p: 4, bgcolor: '#fff', border: '2px solid #8B1D1D', borderRadius: '24px', boxShadow: '0 20px 50px rgba(139, 29, 29, 0.12)', textAlign: 'center', position: 'relative' }}>
-                    <Box sx={{ position: 'absolute', top: -15, right: 20 }}>
-                      <Chip label="RECOMMENDED FOR STUDENTS" color="primary" size="small" sx={{ fontWeight: 900, borderRadius: '6px' }} />
+                {/* On-Chain Record */}
+                <Card elevation={0} sx={{ p: 2, borderRadius: '14px' }}>
+                  <Typography sx={{ color: 'primary.main', fontWeight: 800, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', mb: 1.5 }}>
+                    On-Chain Record
+                  </Typography>
+                  {[
+                    { label: 'Certificate ID', value: result.certId },
+                    { label: 'Transaction Hash', value: result.txHash },
+                  ].map(({ label, value }) => (
+                    <Box key={label} sx={{ mb: 1.2 }}>
+                      <Typography variant="caption" fontWeight={700} color="text.secondary" sx={{ display: 'block', mb: 0.3 }}>
+                        {label}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, bgcolor: '#FCFBF7', borderRadius: '8px', px: 1.2, py: 0.6, border: '1px solid #E5E1D1' }}>
+                        <Typography sx={{
+                          fontFamily: 'monospace', fontSize: '0.7rem', fontWeight: 600, color: '#1A0D0D',
+                          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1,
+                        }}>
+                          {value}
+                        </Typography>
+                        <Button size="small" onClick={() => handleCopy(value)}
+                          sx={{ minWidth: 0, p: 0.3, color: 'text.secondary', flexShrink: 0 }}>
+                          <ContentCopyIcon sx={{ fontSize: 13 }} />
+                        </Button>
+                      </Box>
                     </Box>
-                    <OfflineBoltIcon sx={{ color: '#8B1D1D', fontSize: 40, mb: 1 }} />
-                    <Typography variant="h6" fontWeight={900} color="#1A0D0D">Universal Verification Token</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 3, px: 2 }}>
-                      Scan this QR code with any mobile device for instant, zero-friction verification. The decryption key is securely embedded in the token.
-                    </Typography>
+                  ))}
 
-                    <BrandedQR certId={result.certId} decryptionKey={result.decryptionKey} size={200} />
+                  <Divider sx={{ my: 1.5 }} />
 
-                    <Stack spacing={2} sx={{ mt: 3 }}>
-                      <Button
-                        variant="contained"
-                        startIcon={<LinkIcon />}
+                  {/* Shareable Link */}
+                  <Box sx={{ p: 1.5, bgcolor: '#FCFBF7', borderRadius: '10px', border: '1px solid #E5E1D1' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
+                        <PublicIcon sx={{ fontSize: 15, color: 'primary.main' }} />
+                        <Typography sx={{ fontWeight: 800, fontSize: '0.7rem', color: 'primary.main', textTransform: 'uppercase' }}>
+                          One-Tap Shareable Link
+                        </Typography>
+                      </Box>
+                      <Button size="small" variant="contained" startIcon={<LinkIcon sx={{ fontSize: 13 }} />}
                         onClick={() => handleCopy(shareableUrl)}
-                        sx={{ py: 1.5, fontWeight: 800, borderRadius: '12px' }}
+                        sx={{ fontWeight: 700, fontSize: '0.68rem', py: 0.3, px: 1, borderRadius: '8px', whiteSpace: 'nowrap' }}
                       >
-                        {copied ? 'LINK COPIED' : 'COPY ONE-TAP LINK'}
+                        {copied ? 'COPIED ✓' : 'COPY LINK'}
                       </Button>
-                      <Typography variant="caption" sx={{ color: '#666', fontStyle: 'italic' }}>
-                        * This token includes the decryption key for immediate access.
-                      </Typography>
-                    </Stack>
+                    </Box>
+                    <Typography sx={{
+                      fontFamily: 'monospace', fontSize: '0.6rem', color: '#6B5858',
+                      wordBreak: 'break-all', lineHeight: 1.4, mt: 0.8,
+                    }}>
+                      {shareableUrl.length > 100 ? shareableUrl.slice(0, 100) + '...' : shareableUrl}
+                    </Typography>
                   </Box>
-                </Grid>
-
-                <Grid item xs={12} md={5}>
-                  <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 3, height: '100%', justifyContent: 'center' }}>
-                    <Box>
-                      <Typography variant="subtitle1" fontWeight={800} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <PublicIcon color="primary" /> Global Public Access
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        The certificate is now live on the Ethereum Blockchain and IPFS. Anyone with the ID can verify its status.
-                      </Typography>
-                    </Box>
-
-                    <Box sx={{ p: 2, bgcolor: '#f1f5f9', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                      <Typography variant="caption" fontWeight={900} color="primary" sx={{ display: 'block', mb: 1 }}>
-                        MOBILE SCANNING TIP
-                      </Typography>
-                      <Typography variant="body2" color="#475569" sx={{ fontSize: '0.8rem' }}>
-                        During this development session, ensure you are accessing the portal via your <strong>Local IP</strong> (e.g., http://192.168.x.x:3000) for your phone to reach the registry.
-                      </Typography>
-                    </Box>
-
-                    <Box>
-                      <Typography variant="caption" fontWeight={800} color="text.secondary">RECORD IDENTIFIER</Typography>
-                      <Typography variant="body2" sx={{ fontFamily: 'monospace', fontWeight: 700, color: '#1A0D0D' }}>{result.certId}</Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
-
-              <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2 }}>
-                <Chip label={`On-Chain ID: ${result.certId.slice(0, 10)}...`} variant="outlined" />
-                <Chip label="Zero-Knowledge Fragment Enabled" color="secondary" size="small" />
+                </Card>
               </Box>
-            </Card>
 
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => window.location.reload()}
-              sx={{ py: 2, borderRadius: '12px', fontWeight: 800 }}
-            >
-              Issue Another Certificate
-            </Button>
+              {/* ── RIGHT COLUMN: QR ──────────────────────────── */}
+              <Box sx={{ flex: '0 0 285px', mt: 1.5 }}>
+                <Card elevation={0} sx={{
+                  p: 2.5, borderRadius: '16px', textAlign: 'center',
+                  border: '2px solid #8B1D1D', position: 'relative',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                }}>
+                  {/* Chip sits on top border — mt:1.5 on parent gives it room */}
+                  <Chip
+                    label="SHARE WITH STUDENT"
+                    color="primary"
+                    size="small"
+                    sx={{
+                      position: 'absolute', top: -13, left: '50%', transform: 'translateX(-50%)',
+                      fontWeight: 800, borderRadius: '6px', fontSize: '0.65rem',
+                      whiteSpace: 'nowrap',
+                    }}
+                  />
+
+                  <OfflineBoltIcon sx={{ color: '#8B1D1D', fontSize: 24, mb: 0.3 }} />
+                  <Typography sx={{ fontWeight: 800, fontSize: '0.85rem', color: '#1A0D0D', lineHeight: 1.2 }}>
+                    Universal Verification Token
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ mb: 1.5, display: 'block', fontSize: '0.67rem' }}>
+                    Scan for instant verification with embedded key
+                  </Typography>
+
+                  <BrandedQR certId={result.certId} decryptionKey={result.decryptionKey} size={170} />
+
+                  <Box sx={{ mt: 1.5, display: 'flex', justifyContent: 'center', gap: 0.5, flexWrap: 'wrap' }}>
+                    <Chip label={`ID: ${result.certId.slice(0, 10)}…`} size="small" variant="outlined" sx={{ fontSize: '0.6rem', height: 22 }} />
+                    <Chip label="ZK Fragment" color="secondary" size="small" sx={{ fontSize: '0.6rem', height: 22 }} />
+                  </Box>
+
+                  <Typography variant="caption" color="text.disabled" sx={{ mt: 1, display: 'block', fontStyle: 'italic', fontSize: '0.6rem' }}>
+                    Key in URL fragment — never sent to server
+                  </Typography>
+
+                  <Divider sx={{ my: 1.5, width: '100%' }} />
+
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => window.location.reload()}
+                    startIcon={<AssessmentIcon sx={{ fontSize: 15 }} />}
+                    sx={{ fontWeight: 700, fontSize: '0.72rem', borderRadius: '10px', px: 2, py: 0.7 }}
+                  >
+                    Issue Another
+                  </Button>
+                </Card>
+              </Box>
+            </Box>
           </Box>
         </Fade>
       </Container>
@@ -442,90 +464,63 @@ export default function IssueCertificate() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 6 }}>
-      <Grid container spacing={6}>
-        <Grid item xs={12} md={7}>
-          <Box sx={{ mb: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }} className="animate-fade-in-up">
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
+      {/* ── Always side-by-side flex layout ─────────────────── */}
+      <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start' }}>
+
+        {/* ── LEFT: Header + Stepper + Form ───────────────────── */}
+        <Box sx={{ flex: '1 1 0', minWidth: 0 }}>
+          {/* Header row */}
+          <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <Box>
-              <Typography variant="h3" sx={{ fontWeight: 800, mb: 1, letterSpacing: '-1.5px', color: '#1A0D0D' }}>
+              <Typography variant="h4" sx={{ fontWeight: 800, mb: 0.5, letterSpacing: '-1px', color: '#1A0D0D' }}>
                 Issuance Portal
               </Typography>
-              <Typography variant="body1" color="text.secondary">
+              <Typography variant="body2" color="text.secondary">
                 Academic Registry & Secure Cryptographic Deployment
               </Typography>
             </Box>
-
             <Box sx={{
-              p: 2,
-              bgcolor: '#FCFBF7',
-              borderRadius: '16px',
-              border: '1px solid #E5E1D1',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              minWidth: '200px'
+              p: 1.5, bgcolor: '#FCFBF7', borderRadius: '14px',
+              border: '1px solid #E5E1D1', display: 'flex', alignItems: 'center', gap: 1.5,
             }}>
-              <Avatar sx={{ bgcolor: '#8B1D1D', width: 48, height: 48 }}>
-                <AssessmentIcon sx={{ color: '#ffffff' }} />
+              <Avatar sx={{ bgcolor: '#8B1D1D', width: 40, height: 40 }}>
+                <AssessmentIcon sx={{ color: '#fff', fontSize: 20 }} />
               </Avatar>
               <Box>
-                <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1px', display: 'block' }}>
                   Total Volume
                 </Typography>
-                <Typography variant="h5" sx={{ fontWeight: 900, color: '#1A0D0D' }}>
-                  {loadingVolume ? '...' : stats.totalIssued}
+                <Typography variant="h6" sx={{ fontWeight: 900, color: '#1A0D0D', lineHeight: 1 }}>
+                  {loadingVolume ? '…' : stats.totalIssued}
                 </Typography>
               </Box>
             </Box>
           </Box>
 
-          <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '24px', mb: 4, background: '#FCFBF7' }}>
-            <CardContent sx={{ p: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 800, color: '#8B1D1D', display: 'flex', alignItems: 'center', gap: 1 }}>
-                <AssessmentIcon fontSize="small" /> Institutional Issuance Trends
-              </Typography>
-              {loadingVolume ? (
-                <Box sx={{ height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CircularProgress /></Box>
-              ) : (
-                <Box sx={{ height: 180, width: '100%' }}>
-                  <BarChart
-                    dataset={stats.chartData}
-                    xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-                    series={[{ dataKey: 'count', color: '#8B1D1D', label: 'Certificates' }]}
-                    height={180}
-                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-                    slotProps={{ legend: { hidden: true } }}
-                  />
-                </Box>
-              )}
-            </CardContent>
-          </Card>
-
-          <Stepper activeStep={activeStep} sx={{ mb: 5 }}>
+          <Stepper activeStep={activeStep} sx={{ mb: 3 }}>
             {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
+              <Step key={label}><StepLabel>{label}</StepLabel></Step>
             ))}
           </Stepper>
 
-          <Paper elevation={0} sx={{ p: 4, borderRadius: '24px', border: '1px solid #E5E1D1', background: '#ffffff' }}>
+          <Paper elevation={0} sx={{ p: 3, borderRadius: '20px', border: '1px solid #E5E1D1', background: '#ffffff' }}>
             {activeStep === 0 && (
               <Fade in={true}>
                 <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2.5 }}>
                     <PersonIcon color="primary" />
                     <Typography variant="h6" fontWeight={800}>Participant Identity</Typography>
                   </Box>
-                  <Typography variant="subtitle2" sx={{ mb: 1.5, fontWeight: 700 }}>STUDENT FULL NAME</Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700 }}>STUDENT FULL NAME</Typography>
                   <TextField
                     fullWidth
                     placeholder="e.g., John Doe"
                     value={formData.studentName}
                     onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
-                    sx={{ mb: 4 }}
+                    sx={{ mb: 3 }}
                   />
-                  <Typography variant="subtitle2" sx={{ mb: 1.5, fontWeight: 700 }}>ETHEREUM WALLET ADDRESS</Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700 }}>ETHEREUM WALLET ADDRESS</Typography>
                   <TextField
                     fullWidth
                     placeholder="0x..."
@@ -541,35 +536,28 @@ export default function IssueCertificate() {
             {activeStep === 1 && (
               <Fade in={true}>
                 <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2.5 }}>
                     <AssignmentIcon color="primary" />
                     <Typography variant="h6" fontWeight={800}>Academic Details</Typography>
                   </Box>
-                  <Grid container spacing={3}>
+                  <Grid container spacing={2.5}>
                     <Grid item xs={12}>
                       <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700 }}>DEGREE PROGRAM</Typography>
-                      <TextField
-                        fullWidth
-                        placeholder="Bachelor of Technology in CS"
+                      <TextField fullWidth placeholder="Bachelor of Technology in CS"
                         value={formData.degree}
                         onChange={(e) => setFormData({ ...formData, degree: e.target.value })}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700 }}>GPA / GRADE</Typography>
-                      <TextField
-                        fullWidth
-                        placeholder="e.g., 9.8 / 10"
+                      <TextField fullWidth placeholder="e.g., 9.8 / 10"
                         value={formData.gpa}
                         onChange={(e) => setFormData({ ...formData, gpa: e.target.value })}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700 }}>EXPIRY (YEARS)</Typography>
-                      <TextField
-                        fullWidth
-                        type="number"
-                        placeholder="0 for Lifetime"
+                      <TextField fullWidth type="number" placeholder="0 for Lifetime"
                         value={formData.expiryYears}
                         onChange={(e) => setFormData({ ...formData, expiryYears: e.target.value })}
                       />
@@ -582,36 +570,23 @@ export default function IssueCertificate() {
             {activeStep === 2 && (
               <Fade in={true}>
                 <Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2.5 }}>
                     <SecurityIcon color="primary" />
                     <Typography variant="h6" fontWeight={800}>Secure Packaging</Typography>
                   </Box>
-
-                  <Box
-                    sx={{
-                      p: 5,
-                      border: '2px dashed #D1CBB1',
-                      borderRadius: '16px',
-                      textAlign: 'center',
-                      mb: 4,
-                      bgcolor: selectedFile ? '#fdf2f2' : '#FCFBF7',
-                      cursor: 'pointer',
-                      '&:hover': { borderColor: '#8B1D1D' }
-                    }}
-                    component="label"
-                  >
-                    <input
-                      type="file"
-                      hidden
-                      onChange={(e) => setSelectedFile(e.target.files[0])}
-                    />
-                    <CloudUploadIcon sx={{ fontSize: 48, color: '#D1CBB1', mb: 2 }} />
+                  <Box sx={{
+                    p: 4, border: '2px dashed #D1CBB1', borderRadius: '16px',
+                    textAlign: 'center', mb: 3,
+                    bgcolor: selectedFile ? '#fdf2f2' : '#FCFBF7',
+                    cursor: 'pointer', '&:hover': { borderColor: '#8B1D1D' }
+                  }} component="label">
+                    <input type="file" hidden onChange={(e) => setSelectedFile(e.target.files[0])} />
+                    <CloudUploadIcon sx={{ fontSize: 42, color: '#D1CBB1', mb: 1.5 }} />
                     <Typography variant="body1" fontWeight={700}>
                       {selectedFile ? selectedFile.name : 'Select Final Document'}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">PDF or Image Format</Typography>
                   </Box>
-
                   <List sx={{ bgcolor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
                     <ListItem>
                       <ListItemIcon><VerifiedIcon sx={{ color: '#2E5225' }} /></ListItemIcon>
@@ -626,41 +601,57 @@ export default function IssueCertificate() {
               </Fade>
             )}
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-              <Button
-                disabled={activeStep === 0 || loading}
-                onClick={handleBack}
-              >
-                Back
-              </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+              <Button disabled={activeStep === 0 || loading} onClick={handleBack}>Back</Button>
               {activeStep === steps.length - 1 ? (
-                <Button
-                  variant="contained"
-                  onClick={handleSubmit}
+                <Button variant="contained" onClick={handleSubmit}
                   disabled={!isStepValid() || loading}
-                  sx={{ fontWeight: 800, px: 6 }}
-                >
+                  sx={{ fontWeight: 800, px: 5 }}>
                   {loading ? <CircularProgress size={24} color="inherit" /> : 'Confirm & Deploy'}
                 </Button>
               ) : (
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
+                <Button variant="contained" onClick={handleNext}
                   disabled={!isStepValid()}
-                  sx={{ fontWeight: 800, px: 6 }}
-                >
+                  sx={{ fontWeight: 800, px: 5 }}>
                   Continue
                 </Button>
               )}
             </Box>
           </Paper>
-        </Grid>
 
-        <Grid item xs={12} md={5}>
+          {/* Moved: Institutional Issuance Trends */}
+          <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '20px', mt: 3, background: '#FCFBF7' }}>
+            <CardContent sx={{ p: 3 }}>
+              <Typography sx={{ mb: 2, fontWeight: 800, color: '#8B1D1D', display: 'flex', alignItems: 'center', gap: 1, fontSize: '1rem' }}>
+                <AssessmentIcon sx={{ fontSize: 20 }} /> Institutional Issuance Trends
+              </Typography>
+              {loadingVolume ? (
+                <Box sx={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                <Box sx={{ height: 200, width: '100%' }}>
+                  <BarChart
+                    dataset={stats.chartData}
+                    xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
+                    series={[{ dataKey: 'count', color: '#8B1D1D', label: 'Certificates' }]}
+                    height={200}
+                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+                    slotProps={{ legend: { hidden: true } }}
+                  />
+                </Box>
+              )}
+            </CardContent>
+          </Card>
+        </Box>
+
+        {/* ── RIGHT: Preview — fixed width, always visible ── */}
+        <Box sx={{ flex: '0 0 360px', position: 'sticky', top: 80 }}>
           <PreviewCard data={formData} file={selectedFile} />
-          {error && <Alert severity="error" sx={{ mt: 3, borderRadius: '12px' }}>{error}</Alert>}
-        </Grid>
-      </Grid>
+          {error && <Alert severity="error" sx={{ mt: 2, borderRadius: '12px' }}>{error}</Alert>}
+        </Box>
+
+      </Box>
     </Container>
   );
 }

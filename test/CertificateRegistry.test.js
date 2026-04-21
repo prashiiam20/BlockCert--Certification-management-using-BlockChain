@@ -43,12 +43,5 @@ describe("CertificateRegistry", function () {
     expect(await registry.isRevoked(certId)).to.be.true;
   });
 
-  it("Should batch issue", async function () {
-    const tx = await registry.connect(institution).issueBatch(
-      ethers.keccak256(ethers.toUtf8Bytes("merkleroot")),
-      100
-    );
-    
-    await expect(tx).to.emit(registry, "BatchIssued");
-  });
+
 });

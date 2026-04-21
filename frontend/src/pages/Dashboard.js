@@ -88,11 +88,11 @@ export default function Dashboard() {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 6 }}>
-      <Box sx={{ mb: 6 }} className="animate-fade-in-up">
-        <Typography variant="h3" sx={{ fontWeight: 800, mb: 1, letterSpacing: '-1.5px', color: '#1A0D0D' }}>
+      <Box sx={{ mb: 5 }} className="animate-fade-in-up">
+        <Typography variant="h3" sx={{ mb: 0.75 }}>
           Registry Intelligence
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
+        <Typography variant="body1" color="text.secondary">
           Real-time analytics and global auditing for the Official Academic Registry.
         </Typography>
       </Box>
@@ -100,38 +100,42 @@ export default function Dashboard() {
       <Grid container spacing={4}>
         {/* Left Column: Account & Volume */}
         <Grid item xs={12} md={4} className="animate-fade-in-up stagger-1">
-          <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '20px', mb: 3 }}>
+          <Card elevation={0} sx={{ borderRadius: '20px', mb: 3 }}>
             <CardContent sx={{ p: 4, textAlign: 'center' }}>
-                <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1.5px', mb: 1, display: 'block' }}>TOTAL LIFETIME ISSUANCE</Typography>
-                <Typography variant="h2" sx={{ fontWeight: 900, color: '#1A0D0D' }}>{stats.totalIssued}</Typography>
-                <Divider sx={{ my: 2 }} />
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 700 }}>Institutional Records Verified</Typography>
+              <Typography variant="overline" sx={{ color: 'primary.main', display: 'block', mb: 1 }}>
+                Total Lifetime Issuance
+              </Typography>
+              <Typography variant="h2" sx={{ fontWeight: 800, color: 'text.primary', lineHeight: 1 }}>
+                {stats.totalIssued}
+              </Typography>
+              <Divider sx={{ my: 2 }} />
+              <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
+                Institutional Records on Blockchain
+              </Typography>
             </CardContent>
           </Card>
 
-          <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '20px', mb: 3 }}>
+          <Card elevation={0} sx={{ borderRadius: '20px', mb: 3 }}>
             <CardContent sx={{ p: 4 }}>
-              <Typography variant="h6" sx={{ mb: 3, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 1.5, color: '#8B1D1D' }}>
+              <Typography variant="h6" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1.5, color: 'primary.main' }}>
                 <AccountBalanceWalletIcon />
                 Node Identity
               </Typography>
-              
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
                 <Box>
-                  <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Registry Wallet</Typography>
-                  <Typography variant="body2" sx={{ fontWeight: 700, wordBreak: 'break-all', mt: 0.5, fontFamily: 'monospace' }}>{account}</Typography>
+                  <Typography variant="overline" sx={{ color: 'primary.light', display: 'block', mb: 0.5 }}>Registry Wallet</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 600, wordBreak: 'break-all', fontFamily: 'monospace', fontSize: '0.78rem' }}>{account}</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Box>
-                        <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Network</Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 700 }}>{network}</Typography>
-                    </Box>
-                    <Box sx={{ textAlign: 'right' }}>
-                        <Typography variant="caption" sx={{ fontWeight: 900, color: '#A13D3D', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Status</Typography>
-                        <Box sx={{ mt: 0.5 }}>
-                            <Chip label="ONLINE" size="small" sx={{ fontWeight: 800, background: '#f0fdf4', color: '#166534', border: '1px solid #bbfcce' }} />
-                        </Box>
-                    </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                  <Box>
+                    <Typography variant="overline" sx={{ color: 'primary.light', display: 'block', mb: 0.5 }}>Network</Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 600 }}>{network}</Typography>
+                  </Box>
+                  <Box sx={{ textAlign: 'right' }}>
+                    <Typography variant="overline" sx={{ color: 'primary.light', display: 'block', mb: 0.5 }}>Status</Typography>
+                    <Chip label="ONLINE" size="small" color="success" />
+                  </Box>
                 </Box>
               </Box>
             </CardContent>
@@ -140,26 +144,19 @@ export default function Dashboard() {
 
         {/* Right Column: Actions & Global Log */}
         <Grid item xs={12} md={8} className="animate-fade-in-up stagger-2">
-          <Card elevation={0} sx={{ border: '1px solid #E5E1D1', borderRadius: '20px', mb: 3 }}>
+          <Card elevation={0} sx={{ borderRadius: '20px', mb: 3 }}>
             <CardContent sx={{ p: 4 }}>
-              <Typography variant="h6" sx={{ mb: 3, fontWeight: 800, display: 'flex', alignItems: 'center', gap: 1.5, color: '#1A0D0D' }}>
-                <VerifiedIcon sx={{ color: '#2E5225' }} />
+              <Typography variant="h6" sx={{ mb: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <VerifiedIcon sx={{ color: 'secondary.main' }} />
                 Administrative Services
               </Typography>
               <Grid container spacing={2}>
                 {userRole === ROLES.INSTITUTION && (
-                  <>
-                    <Grid item xs={12} sm={6}>
-                      <Button variant="contained" startIcon={<SchoolIcon />} onClick={() => navigate('/issue')} fullWidth size="large" sx={{ py: 2 }}>
-                        New Issuance
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Button variant="outlined" startIcon={<BatchPredictionIcon />} onClick={() => navigate('/batch-issue')} fullWidth size="large" sx={{ py: 2 }}>
-                        Batch Protocol
-                      </Button>
-                    </Grid>
-                  </>
+                  <Grid item xs={12} sm={6}>
+                    <Button variant="contained" startIcon={<SchoolIcon />} onClick={() => navigate('/issue')} fullWidth size="large" sx={{ py: 2 }}>
+                      New Issuance
+                    </Button>
+                  </Grid>
                 )}
                 <Grid item xs={12} sm={6}>
                   <Button variant="outlined" startIcon={<VerifiedIcon />} onClick={() => navigate('/verify')} fullWidth size="large" sx={{ py: 2 }}>
@@ -179,14 +176,14 @@ export default function Dashboard() {
 
           <Paper elevation={0} sx={{ borderRadius: '20px', border: '1px solid #E5E1D1', overflow: 'hidden' }}>
             <Box sx={{ px: 3, pt: 3, pb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h6" sx={{ fontWeight: 800, display: 'flex', alignItems: 'center', gap: 1.5, color: '#1A0D0D' }}>
-                    <HistoryIcon sx={{ color: '#8B1D1D' }} />
-                    Protocol Activity
-                </Typography>
-                <Tabs value={activityTab} onChange={(_, v) => setActivityTab(v)} sx={{ minHeight: 0 }}>
-                    <Tab label="My Records" icon={<PersonIcon />} iconPosition="start" sx={{ fontWeight: 800, minHeight: 40, px: 2 }} />
-                    <Tab label="Global Registry" icon={<PublicIcon />} iconPosition="start" sx={{ fontWeight: 800, minHeight: 40, px: 2 }} />
-                </Tabs>
+              <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <HistoryIcon sx={{ color: 'primary.main' }} />
+                Protocol Activity
+              </Typography>
+              <Tabs value={activityTab} onChange={(_, v) => setActivityTab(v)}>
+                <Tab label="My Records" icon={<PersonIcon />} iconPosition="start" />
+                <Tab label="Global Registry" icon={<PublicIcon />} iconPosition="start" />
+              </Tabs>
             </Box>
             
             <Box sx={{ p: 2 }}>
@@ -195,11 +192,11 @@ export default function Dashboard() {
               ) : (
                 <TableContainer>
                   <Table size="small">
-                    <TableHead sx={{ background: '#FCFBF7' }}>
+                    <TableHead>
                       <TableRow>
-                        <TableCell sx={{ fontWeight: 900, fontSize: '0.7rem', color: '#A13D3D' }}>RECORD ID</TableCell>
-                        <TableCell sx={{ fontWeight: 900, fontSize: '0.7rem', color: '#A13D3D' }}>{activityTab === 0 ? 'STUDENT' : 'ISSUER'}</TableCell>
-                        <TableCell align="right" sx={{ fontWeight: 900, fontSize: '0.7rem', color: '#A13D3D' }}>AUDIT</TableCell>
+                        <TableCell>RECORD ID</TableCell>
+                        <TableCell>{activityTab === 0 ? 'STUDENT' : 'ISSUER'}</TableCell>
+                        <TableCell align="right">AUDIT</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

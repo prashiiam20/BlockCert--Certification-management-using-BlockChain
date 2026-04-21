@@ -21,7 +21,7 @@ export const EthereumProvider = ({ children }) => {
     setSigner(null);
     setContract(null);
     setUserRole(0);
-    localStorage.setItem('blockcert_disconnected', 'true');
+    localStorage.setItem('acadvault_disconnected', 'true');
   };
 
   const connectWallet = async () => {
@@ -34,7 +34,7 @@ export const EthereumProvider = ({ children }) => {
       setLoading(true);
       
       // Clear manual disconnect flag when explicitly connecting
-      localStorage.removeItem('blockcert_disconnected');
+      localStorage.removeItem('acadvault_disconnected');
 
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts'
@@ -74,7 +74,7 @@ export const EthereumProvider = ({ children }) => {
   const loadContract = async (signer, networkName, address) => {
     try {
       const contractAddress = NETWORKS[networkName].contractAddress;
-      console.log(`[BlockCert Debug] Loading contract at: ${contractAddress} on network: ${networkName}`);
+      console.log(`[AcadVault Debug] Loading contract at: ${contractAddress} on network: ${networkName}`);
       
       const contract = new ethers.Contract(
         contractAddress,
@@ -86,9 +86,9 @@ export const EthereumProvider = ({ children }) => {
 
       // Get user role using the provided address since React state 'account' may be stale
       if (address) {
-        console.log(`[BlockCert Debug] Fetching role for address: ${address}`);
+        console.log(`[AcadVault Debug] Fetching role for address: ${address}`);
         const role = await contract.roles(address);
-        console.log(`[BlockCert Debug] Role fetched: ${role}`);
+        console.log(`[AcadVault Debug] Role fetched: ${role}`);
         setUserRole(role);
 
         // Also fetch admin address
@@ -96,7 +96,7 @@ export const EthereumProvider = ({ children }) => {
         setAdminAddress(admin);
       }
     } catch (error) {
-      console.error('[BlockCert Debug] Error loading contract or roles:', error);
+      console.error('[AcadVault Debug] Error loading contract or roles:', error);
     }
   };
 
@@ -147,7 +147,7 @@ export const EthereumProvider = ({ children }) => {
         // Auto-connect if already authorized
         try {
           const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-          const isManuallyDisconnected = localStorage.getItem('blockcert_disconnected') === 'true';
+          const isManuallyDisconnected = localStorage.getItem('acadvault_disconnected') === 'true';
           
           if (accounts.length > 0 && !isManuallyDisconnected) {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
