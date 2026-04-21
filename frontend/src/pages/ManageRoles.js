@@ -17,7 +17,7 @@ import { EthereumContext } from '../context/EthereumContext';
 import { ROLES, ROLE_NAMES } from '../config/contracts';
 
 export default function ManageRoles() {
-  const { account, contract, userRole, adminAddress } = useContext(EthereumContext);
+  const { contract, userRole } = useContext(EthereumContext);
   const [address, setAddress] = useState('');
   const [role, setRole] = useState(3); // Default to INSTITUTION
   const [loading, setLoading] = useState(false);

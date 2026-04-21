@@ -5,8 +5,6 @@ import {
   Typography,
   Button,
   Box,
-  Grid,
-  Divider,
 } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SecurityIcon from '@mui/icons-material/Security';
@@ -17,28 +15,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import { useNavigate } from 'react-router-dom';
 import { EthereumContext } from '../context/EthereumContext';
 
-const features = [
-  {
-    icon: SecurityIcon,
-    title: 'On-Chain Verification',
-    desc: 'Every credential is anchored immutably on the Ethereum blockchain.',
-  },
-  {
-    icon: FingerprintIcon,
-    title: 'Role-Based Authority',
-    desc: 'Government → Institution → Student access hierarchy enforced at contract level.',
-  },
-  {
-    icon: LockIcon,
-    title: 'ChaCha20-Poly1305',
-    desc: 'Client-side AEAD encryption ensures documents are never readable on IPFS.',
-  },
-  {
-    icon: VerifiedUserIcon,
-    title: 'Web3 Native Identity',
-    desc: 'Your MetaMask wallet is your institutional identity — no passwords required.',
-  },
-];
 
 export default function Login() {
   const { account, connectWallet } = useContext(EthereumContext);
