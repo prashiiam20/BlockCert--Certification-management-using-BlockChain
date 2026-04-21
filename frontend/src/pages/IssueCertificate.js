@@ -255,37 +255,55 @@ export default function IssueCertificate() {
         expiryDate
       );
 
-      const receipt = await tx.wait();
-
-      const eventSignature = "CertificateIssued(bytes32,address,address)";
-      const eventTopic = ethers.utils.id(eventSignature);
-
-      let certId;
-      try {
-        const log = receipt.logs.find(l => l.topics[0].toLowerCase() === eventTopic.toLowerCase());
-        if (log) {
-          certId = log.topics[1];
-          console.log("Matched CertificateIssued log at index:", receipt.logs.indexOf(log));
-        } else {
-          // Fallback to receipt.events for better compatibility with different providers
-          const event = receipt.events?.find(e => e.event === 'CertificateIssued');
-          certId = event ? event.args.certId : receipt.logs[0].topics[1];
-          console.log("Using fallback extraction method.");
-        }
-      } catch (logErr) {
-        console.error("Log Parsing Error:", logErr);
-        certId = receipt.logs[0].topics[1];
-      }
-
-      console.log("Final Extracted CertID:", certId);
-
+      // ── Optimistic UI: Show success immediately after broadcast ──
+      // The transaction is now in the mempool. Show the user instant feedback
+      // while the blockchain confirms it in the background (~12-15s on Sepolia).
+      setLoading(false);
       setResult({
-        certId,
+        certId: ethers.utils.keccak256(
+          ethers.utils.defaultAbiCoder.encode(
+            ['bytes32', 'address', 'uint256'],
+            [certHash, formData.studentAddress, Math.floor(Date.now() / 1000)]
+          )
+        ),
         txHash: tx.hash,
-        gasUsed: receipt.gasUsed.toString(),
+        gasUsed: 'Confirming…',
         decryptionKey: hexDecryptionKey,
-        isVaultBacked: true
+        isVaultBacked: true,
+        confirming: true
       });
+
+      // Background confirmation — updates gasUsed silently
+      tx.wait().then((receipt) => {
+        const eventSignature = "CertificateIssued(bytes32,address,address)";
+        const eventTopic = ethers.utils.id(eventSignature);
+
+        let certId;
+        try {
+          const log = receipt.logs.find(l => l.topics[0].toLowerCase() === eventTopic.toLowerCase());
+          if (log) {
+            certId = log.topics[1];
+          } else {
+            const event = receipt.events?.find(e => e.event === 'CertificateIssued');
+            certId = event ? event.args.certId : receipt.logs[0].topics[1];
+          }
+        } catch (logErr) {
+          console.error("Log Parsing Error:", logErr);
+          certId = receipt.logs[0].topics[1];
+        }
+
+        setResult(prev => ({
+          ...prev,
+          certId: certId || prev.certId,
+          gasUsed: receipt.gasUsed.toString(),
+          confirming: false
+        }));
+      }).catch(err => {
+        console.error("Confirmation error:", err);
+        setResult(prev => ({ ...prev, gasUsed: 'Confirmation failed', confirming: false }));
+      });
+
+      return; // Skip the finally block's setLoading(false)
     } catch (err) {
       console.error(err);
       setError(err.message);

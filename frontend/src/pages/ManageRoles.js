@@ -31,11 +31,21 @@ export default function ManageRoles() {
 
     try {
       const tx = await contract.grantRole(address, role);
-      await tx.wait();
 
-      setResult(`Role ${ROLE_NAMES[role]} granted to ${address}`);
-      setAddress('');
+      // ── Optimistic UI: Show success instantly ──
       setLoading(false);
+      setResult(`Role ${ROLE_NAMES[role]} granted to ${address} — confirming on-chain…`);
+      setAddress('');
+
+      // Background confirmation
+      tx.wait().then(() => {
+        setResult(`Role ${ROLE_NAMES[role]} successfully confirmed on-chain ✓`);
+      }).catch(err => {
+        console.error("Confirmation error:", err);
+        setError('Transaction was broadcast but failed to confirm. Please check Etherscan.');
+      });
+
+      return;
     } catch (err) {
       console.error(err);
       setError(err.message);

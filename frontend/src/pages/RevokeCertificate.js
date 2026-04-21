@@ -43,9 +43,21 @@ export default function RevokeCertificate() {
         throw new Error('Invalid Certificate ID format — must be a 66-character hex string starting with 0x.');
       }
       const tx = await contract.revokeCertificate(certId);
-      const receipt = await tx.wait();
-      setResult({ certId, txHash: tx.hash, gasUsed: receipt.gasUsed.toString() });
+
+      // ── Optimistic UI: Show success instantly ──
+      setLoading(false);
+      setResult({ certId, txHash: tx.hash, gasUsed: 'Confirming…', confirming: true });
       setCertId('');
+
+      // Background confirmation
+      tx.wait().then((receipt) => {
+        setResult(prev => ({ ...prev, gasUsed: receipt.gasUsed.toString(), confirming: false }));
+      }).catch(err => {
+        console.error("Confirmation error:", err);
+        setResult(prev => ({ ...prev, gasUsed: 'Confirmation failed', confirming: false }));
+      });
+
+      return;
     } catch (err) {
       setError(err.reason || err.message);
     } finally {
