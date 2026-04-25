@@ -358,6 +358,10 @@ export default function MyCertificates() {
 
       // Dual-Hashing Hyper-Scanner
       const protocols = [
+        // Primary (current protocol — matches Section 5.2 documentation)
+        `[AcadVault Registry] Master Recovery Key for Student: ${cert.student.toLowerCase()}`,
+        `[AcadVault Registry] Access Key for Student: ${cert.student.toLowerCase()}`,
+        // Legacy fallback (certificates issued before protocol rename)
         `[BlockCert Registry] Master Recovery Key for Student: ${cert.student.toLowerCase()}`,
         `[BlockCert Registry] Access Key for Student: ${cert.student.toLowerCase()}`
       ];

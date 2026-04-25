@@ -193,6 +193,11 @@ export default function VerifyCertificate() {
 
       // Scanner Matrix: Permutations of messages AND hash functions
       const protocols = [
+        // Primary (current protocol — matches Section 5.2 documentation)
+        `[AcadVault Registry] Master Recovery Key for Student: ${certificate.student.toLowerCase()}`,
+        `[AcadVault Registry] Access Key for Student: ${certificate.student.toLowerCase()}`,
+        `[AcadVault] Access Key for Student: ${certificate.student.toLowerCase()}`,
+        // Legacy fallback (certificates issued before protocol rename)
         `[BlockCert Registry] Master Recovery Key for Student: ${certificate.student.toLowerCase()}`,
         `[BlockCert Registry] Access Key for Student: ${certificate.student.toLowerCase()}`,
         `[BlockCert] Access Key for Student: ${certificate.student.toLowerCase()}`,

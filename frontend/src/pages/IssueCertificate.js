@@ -205,7 +205,7 @@ export default function IssueCertificate() {
       // 2. Cryptographic Key Generation (Institutional Registry Vault model)
       // The Registrar (Issuer) provides the master signature for all students.
       // This ensures the Institution (the Registrar) can always regenerate a student's key on demand.
-      const derivationMessage = `[BlockCert Registry] Master Recovery Key for Student: ${formData.studentAddress.toLowerCase()}`;
+      const derivationMessage = `[AcadVault Registry] Master Recovery Key for Student: ${formData.studentAddress.toLowerCase()}`;
       const signature = await contract.signer.signMessage(derivationMessage);
       const keyHash = ethers.utils.keccak256(signature);
       const key = ethers.utils.arrayify(keyHash);
